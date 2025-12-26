@@ -60,6 +60,7 @@
   import { LOGIN_DEVICE_ENUM } from '/@/constants/system/login-device-const';
   import { useUserStore } from '/@/store/modules/system/user';
   import loginQR from '/@/assets/images/login/login-qr.png';
+  import loginGif from '/@/assets/images/login/login-min.gif';
   import gzh from '/@/assets/images/1024lab/gzh.jpg';
   import { buildRoutes } from '/@/router/index';
   import { smartSentry } from '/@/lib/smart-sentry';
