@@ -1,0 +1,53 @@
+# Node modules
+node_modules/
+*/node_modules/
+
+# Maven
+target/
+*/target/
+.mvn/
+mvnw
+mvnw.cmd
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Build
+dist/
+build/
+out/
+
+# Logs
+logs/
+*.log
+tomcat-logs/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Redis & Database
+*.rdb
+*.aof
+
+# Project specific - exclude local tools
+apache-maven-3.9.6/
+nodejs/
+Redis-x64-3.0.504/
+
+# Temp files
+*.tmp
+*.swp
+*.bak
+*~
