@@ -7,8 +7,8 @@
   <div class="login-container">
     <div class="box-item desc">
       <div class="welcome">
-        <p>欢迎登录 SmartAdmin V3</p>
-        <p class="sub-welcome">「高质量代码、简洁、高效、安全」的开发平台</p>
+        <p>欢迎登录SPD耗材管理系统</p>
+        <p class="sub-welcome">「高效率、简洁、安全」的SPD平台</p>
       </div>
       <img class="welcome-img" :src="loginGif" />
     </div>
@@ -41,7 +41,6 @@
         </a-form-item>
         <a-form-item>
           <a-checkbox v-model:checked="rememberPwd">记住密码</a-checkbox>
-          <span> ( 账号：admin, 密码：123456)</span>
         </a-form-item>
         <a-form-item>
           <div class="btn" @click="onLogin">登录</div>
