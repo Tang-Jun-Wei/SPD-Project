@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.role.service;
+package net.lab1024.sa.admin.module.system.role.service;
 
 import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.system.role.dao.RoleDao;

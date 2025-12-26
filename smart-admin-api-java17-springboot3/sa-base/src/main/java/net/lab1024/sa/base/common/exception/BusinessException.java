@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.exception;
+package net.lab1024.sa.base.common.exception;
 
 import net.lab1024.sa.base.common.code.ErrorCode;
 

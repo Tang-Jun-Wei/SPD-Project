@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.support;
+package net.lab1024.sa.admin.module.system.support;
 
 import cn.hutool.core.util.RandomUtil;
 import io.swagger.v3.oas.annotations.Operation;

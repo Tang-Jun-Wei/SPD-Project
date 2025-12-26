@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.config;
+package net.lab1024.sa.base.config;
 
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.hutool.core.util.StrUtil;

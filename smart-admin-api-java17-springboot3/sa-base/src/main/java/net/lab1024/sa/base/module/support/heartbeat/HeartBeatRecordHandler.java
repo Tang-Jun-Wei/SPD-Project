@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.heartbeat;
+package net.lab1024.sa.base.module.support.heartbeat;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

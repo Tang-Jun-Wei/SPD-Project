@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.table;
+package net.lab1024.sa.base.module.support.table;
 
 import com.alibaba.fastjson.JSONArray;
 import jakarta.annotation.Resource;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.table;
+package net.lab1024.sa.base.module.support.table;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.lab1024.sa.base.module.support.table.domain.TableColumnEntity;

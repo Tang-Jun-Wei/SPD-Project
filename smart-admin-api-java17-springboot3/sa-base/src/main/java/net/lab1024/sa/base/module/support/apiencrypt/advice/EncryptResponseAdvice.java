@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.apiencrypt.advice;
+package net.lab1024.sa.base.module.support.apiencrypt.advice;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;

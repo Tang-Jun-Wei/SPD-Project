@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.datascope.domain;
+package net.lab1024.sa.admin.module.system.datascope.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

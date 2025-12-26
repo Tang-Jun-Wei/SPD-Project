@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.reload.core;
+package net.lab1024.sa.base.module.support.reload.core;
 
 
 import jakarta.annotation.PostConstruct;

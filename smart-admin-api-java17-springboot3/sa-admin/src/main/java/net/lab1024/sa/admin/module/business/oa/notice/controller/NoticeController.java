@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.notice.controller;
+package net.lab1024.sa.admin.module.business.oa.notice.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.extra.servlet.JakartaServletUtil;

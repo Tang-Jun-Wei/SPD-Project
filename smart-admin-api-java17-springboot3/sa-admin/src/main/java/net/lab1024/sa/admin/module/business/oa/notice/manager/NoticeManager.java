@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.notice.manager;
+package net.lab1024.sa.admin.module.business.oa.notice.manager;
 
 import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.business.oa.notice.dao.NoticeDao;

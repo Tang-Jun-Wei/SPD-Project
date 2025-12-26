@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.constant;
+package net.lab1024.sa.base.common.constant;
 
 /**
  * 请求消息头常量

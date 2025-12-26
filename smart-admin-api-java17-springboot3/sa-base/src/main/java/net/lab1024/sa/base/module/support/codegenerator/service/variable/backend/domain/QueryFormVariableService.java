@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.codegenerator.service.variable.backend.domain;
+package net.lab1024.sa.base.module.support.codegenerator.service.variable.backend.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import net.lab1024.sa.base.common.util.SmartEnumUtil;

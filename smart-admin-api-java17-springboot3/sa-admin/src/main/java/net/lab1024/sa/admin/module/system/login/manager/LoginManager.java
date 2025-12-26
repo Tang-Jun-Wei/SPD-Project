@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.login.manager;
+package net.lab1024.sa.admin.module.system.login.manager;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

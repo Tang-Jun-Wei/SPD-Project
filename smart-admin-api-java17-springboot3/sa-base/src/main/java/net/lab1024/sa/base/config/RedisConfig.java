@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.config;
+package net.lab1024.sa.base.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;

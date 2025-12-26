@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.table;
+package net.lab1024.sa.base.module.support.table;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.heartbeat.core;
+package net.lab1024.sa.base.module.support.heartbeat.core;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;

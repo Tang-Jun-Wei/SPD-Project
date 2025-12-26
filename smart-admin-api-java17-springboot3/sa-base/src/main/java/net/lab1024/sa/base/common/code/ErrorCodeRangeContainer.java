@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.code;
+package net.lab1024.sa.base.common.code;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;

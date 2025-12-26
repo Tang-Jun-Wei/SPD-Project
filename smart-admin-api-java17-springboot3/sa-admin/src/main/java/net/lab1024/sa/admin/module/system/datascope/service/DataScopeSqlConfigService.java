@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.datascope.service;
+package net.lab1024.sa.admin.module.system.datascope.service;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;

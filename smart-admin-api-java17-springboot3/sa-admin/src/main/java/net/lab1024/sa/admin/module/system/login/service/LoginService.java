@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.login.service;
+package net.lab1024.sa.admin.module.system.login.service;
 
 import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;

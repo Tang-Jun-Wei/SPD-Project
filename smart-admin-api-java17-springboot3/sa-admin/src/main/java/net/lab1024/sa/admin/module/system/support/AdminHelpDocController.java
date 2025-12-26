@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.support;
+package net.lab1024.sa.admin.module.system.support;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.v3.oas.annotations.Operation;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.role.service;
+package net.lab1024.sa.admin.module.system.role.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;

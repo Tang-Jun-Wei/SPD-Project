@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.datatracer.annoation;
+package net.lab1024.sa.base.module.support.datatracer.annoation;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 

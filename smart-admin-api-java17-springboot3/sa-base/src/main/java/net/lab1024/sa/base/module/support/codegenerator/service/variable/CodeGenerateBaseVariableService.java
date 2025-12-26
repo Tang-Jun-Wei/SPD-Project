@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.codegenerator.service.variable;
+package net.lab1024.sa.base.module.support.codegenerator.service.variable;
 
 import com.google.common.base.CaseFormat;
 import net.lab1024.sa.base.common.util.SmartStringUtil;

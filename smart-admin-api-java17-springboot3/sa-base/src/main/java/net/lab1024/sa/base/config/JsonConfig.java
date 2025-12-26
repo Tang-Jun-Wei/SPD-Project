@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.config;
+package net.lab1024.sa.base.config;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;

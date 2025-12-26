@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.feedback.controller;
+package net.lab1024.sa.base.module.support.feedback.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

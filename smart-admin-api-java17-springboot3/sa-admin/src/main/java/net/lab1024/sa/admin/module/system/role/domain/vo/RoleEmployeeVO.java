@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.role.domain.vo;
+package net.lab1024.sa.admin.module.system.role.domain.vo;
 
 import lombok.Data;
 

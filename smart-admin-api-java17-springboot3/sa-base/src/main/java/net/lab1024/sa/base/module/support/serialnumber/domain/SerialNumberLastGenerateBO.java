@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.serialnumber.domain;
+package net.lab1024.sa.base.module.support.serialnumber.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

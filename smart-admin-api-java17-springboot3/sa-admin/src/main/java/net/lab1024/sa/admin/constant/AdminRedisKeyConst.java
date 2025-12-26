@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.constant;
+package net.lab1024.sa.admin.constant;
 
 import net.lab1024.sa.base.constant.RedisKeyConst;
 

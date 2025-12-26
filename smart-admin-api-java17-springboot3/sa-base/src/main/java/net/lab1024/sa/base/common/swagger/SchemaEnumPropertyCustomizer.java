@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.swagger;
+package net.lab1024.sa.base.common.swagger;
 
 import io.swagger.v3.core.converter.AnnotatedType;
 import io.swagger.v3.oas.models.media.Schema;

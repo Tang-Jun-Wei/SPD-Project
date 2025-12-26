@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.notice.domain.entity;
+package net.lab1024.sa.admin.module.business.oa.notice.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

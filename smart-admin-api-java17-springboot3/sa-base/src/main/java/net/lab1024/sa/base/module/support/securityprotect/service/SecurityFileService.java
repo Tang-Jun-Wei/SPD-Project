@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.securityprotect.service;
+package net.lab1024.sa.base.module.support.securityprotect.service;
 
 import lombok.extern.slf4j.Slf4j;
 import jakarta.annotation.Resource;

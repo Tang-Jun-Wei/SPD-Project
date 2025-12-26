@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.datascope.domain;
+package net.lab1024.sa.admin.module.system.datascope.domain;
 
 import lombok.Data;
 import net.lab1024.sa.admin.module.system.datascope.constant.DataScopeTypeEnum;

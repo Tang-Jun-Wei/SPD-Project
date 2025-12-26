@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.codegenerator.constant;
+package net.lab1024.sa.base.module.support.codegenerator.constant;
 
 /**
  * 常量

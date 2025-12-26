@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.securityprotect.service;
+package net.lab1024.sa.base.module.support.securityprotect.service;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;

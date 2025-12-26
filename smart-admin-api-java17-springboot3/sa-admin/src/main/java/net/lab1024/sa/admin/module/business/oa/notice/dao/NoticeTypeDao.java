@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.notice.dao;
+package net.lab1024.sa.admin.module.business.oa.notice.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.lab1024.sa.admin.module.business.oa.notice.domain.entity.NoticeTypeEntity;

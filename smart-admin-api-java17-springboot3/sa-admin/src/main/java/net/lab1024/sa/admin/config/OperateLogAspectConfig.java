@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.config;
+package net.lab1024.sa.admin.config;
 
 import net.lab1024.sa.base.module.support.operatelog.core.OperateLogAspect;
 import net.lab1024.sa.base.module.support.operatelog.core.OperateLogConfig;

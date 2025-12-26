@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.config;
+package net.lab1024.sa.base.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

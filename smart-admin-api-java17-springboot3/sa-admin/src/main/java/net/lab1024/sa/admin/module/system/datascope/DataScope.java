@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.datascope;
+package net.lab1024.sa.admin.module.system.datascope;
 
 
 import net.lab1024.sa.admin.module.system.datascope.constant.DataScopeTypeEnum;

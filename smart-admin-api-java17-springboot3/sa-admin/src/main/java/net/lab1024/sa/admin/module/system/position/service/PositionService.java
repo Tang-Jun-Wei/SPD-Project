@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.position.service;
+package net.lab1024.sa.admin.module.system.position.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;

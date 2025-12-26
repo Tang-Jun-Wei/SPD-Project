@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.serialnumber.service;
+package net.lab1024.sa.base.module.support.serialnumber.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;

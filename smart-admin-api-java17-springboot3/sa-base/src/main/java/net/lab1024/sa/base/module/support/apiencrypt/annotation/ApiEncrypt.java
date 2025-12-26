@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.apiencrypt.annotation;
+package net.lab1024.sa.base.module.support.apiencrypt.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

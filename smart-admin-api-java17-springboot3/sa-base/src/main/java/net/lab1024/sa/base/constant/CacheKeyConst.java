@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.constant;
+package net.lab1024.sa.base.constant;
 
 /**
  * 缓存key常量

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.mail.domain;
+package net.lab1024.sa.base.module.support.mail.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

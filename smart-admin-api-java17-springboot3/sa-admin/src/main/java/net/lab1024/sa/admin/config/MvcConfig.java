@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.config;
+package net.lab1024.sa.admin.config;
 
 import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.interceptor.AdminInterceptor;

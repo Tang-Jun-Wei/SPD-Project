@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.role.manager;
+package net.lab1024.sa.admin.module.system.role.manager;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.lab1024.sa.admin.module.system.role.dao.RoleDataScopeDao;

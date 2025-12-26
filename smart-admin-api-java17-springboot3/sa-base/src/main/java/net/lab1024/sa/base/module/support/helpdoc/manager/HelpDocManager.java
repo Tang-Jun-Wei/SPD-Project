@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.helpdoc.manager;
+package net.lab1024.sa.base.module.support.helpdoc.manager;
 
 import jakarta.annotation.Resource;
 import net.lab1024.sa.base.module.support.helpdoc.dao.HelpDocDao;

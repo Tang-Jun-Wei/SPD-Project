@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.redis;
+package net.lab1024.sa.base.module.support.redis;
 
 import net.lab1024.sa.base.common.util.SmartStringUtil;
 import org.redisson.config.Config;

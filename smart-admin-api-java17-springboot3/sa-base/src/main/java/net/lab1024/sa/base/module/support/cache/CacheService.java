@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.cache;
+package net.lab1024.sa.base.module.support.cache;
 
 import org.springframework.stereotype.Service;
 

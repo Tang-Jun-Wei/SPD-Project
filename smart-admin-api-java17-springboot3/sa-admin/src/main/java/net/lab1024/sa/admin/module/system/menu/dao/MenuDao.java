@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.menu.dao;
+package net.lab1024.sa.admin.module.system.menu.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;

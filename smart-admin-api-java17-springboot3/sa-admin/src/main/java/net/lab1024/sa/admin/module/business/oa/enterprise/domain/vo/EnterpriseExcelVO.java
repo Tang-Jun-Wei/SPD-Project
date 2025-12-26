@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.enterprise.domain.vo;
+package net.lab1024.sa.admin.module.business.oa.enterprise.domain.vo;
 
 import cn.idev.excel.annotation.ExcelProperty;
 import lombok.Data;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.config;
+package net.lab1024.sa.base.module.support.config;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;

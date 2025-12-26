@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.table.domain;
+package net.lab1024.sa.base.module.support.table.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;

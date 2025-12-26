@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.department.service;
+package net.lab1024.sa.admin.module.system.department.service;
 
 import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.system.department.dao.DepartmentDao;

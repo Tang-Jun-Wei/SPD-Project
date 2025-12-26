@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.dict.domain.vo;
+package net.lab1024.sa.base.module.support.dict.domain.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

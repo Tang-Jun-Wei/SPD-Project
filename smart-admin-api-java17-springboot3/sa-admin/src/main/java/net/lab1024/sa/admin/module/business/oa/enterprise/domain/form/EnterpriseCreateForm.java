@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.enterprise.domain.form;
+package net.lab1024.sa.admin.module.business.oa.enterprise.domain.form;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.config;
+package net.lab1024.sa.base.config;
 
 import com.google.common.collect.Lists;
 import io.swagger.v3.oas.models.Components;

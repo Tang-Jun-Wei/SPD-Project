@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.bank.dao;
+package net.lab1024.sa.admin.module.business.oa.bank.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.mail;
+package net.lab1024.sa.base.module.support.mail;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.util;
+package net.lab1024.sa.admin.util;
 
 import net.lab1024.sa.admin.module.system.login.domain.RequestEmployee;
 import net.lab1024.sa.base.common.domain.RequestUser;

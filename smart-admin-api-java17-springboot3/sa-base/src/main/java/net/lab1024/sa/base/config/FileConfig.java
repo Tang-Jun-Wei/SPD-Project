@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.config;
+package net.lab1024.sa.base.config;
 
 import lombok.Data;
 import net.lab1024.sa.base.module.support.file.service.FileStorageCloudServiceImpl;

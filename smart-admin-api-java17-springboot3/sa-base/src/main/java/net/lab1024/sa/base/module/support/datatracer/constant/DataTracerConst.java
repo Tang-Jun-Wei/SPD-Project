@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.datatracer.constant;
+package net.lab1024.sa.base.module.support.datatracer.constant;
 
 /**
  * 常量

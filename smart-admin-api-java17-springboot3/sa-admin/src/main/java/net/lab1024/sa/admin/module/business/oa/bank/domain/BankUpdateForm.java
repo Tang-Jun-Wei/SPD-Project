@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.bank.domain;
+package net.lab1024.sa.admin.module.business.oa.bank.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

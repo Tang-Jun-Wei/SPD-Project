@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.codegenerator.service.variable.front;
+package net.lab1024.sa.base.module.support.codegenerator.service.variable.front;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.google.common.base.CaseFormat;

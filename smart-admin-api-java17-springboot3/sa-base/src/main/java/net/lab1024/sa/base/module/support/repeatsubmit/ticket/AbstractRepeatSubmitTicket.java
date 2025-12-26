@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.repeatsubmit.ticket;
+package net.lab1024.sa.base.module.support.repeatsubmit.ticket;
 
 import jakarta.servlet.http.HttpServletRequest;
 

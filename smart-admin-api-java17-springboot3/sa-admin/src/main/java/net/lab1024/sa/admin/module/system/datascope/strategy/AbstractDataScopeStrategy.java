@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.datascope.strategy;
+package net.lab1024.sa.admin.module.system.datascope.strategy;
 
 import net.lab1024.sa.admin.module.system.datascope.constant.DataScopeViewTypeEnum;
 import net.lab1024.sa.admin.module.system.datascope.domain.DataScopeSqlConfig;

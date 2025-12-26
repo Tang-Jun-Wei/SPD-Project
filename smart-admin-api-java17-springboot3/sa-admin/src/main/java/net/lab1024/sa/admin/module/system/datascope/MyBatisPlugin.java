@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.datascope;
+package net.lab1024.sa.admin.module.system.datascope;
 
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Maps;

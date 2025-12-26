@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.securityprotect.service;
+package net.lab1024.sa.base.module.support.securityprotect.service;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.config;
+package net.lab1024.sa.base.config;
 
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.base.common.util.SmartStringUtil;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.position.manager;
+package net.lab1024.sa.admin.module.system.position.manager;
 
 import net.lab1024.sa.admin.module.system.position.dao.PositionDao;
 import net.lab1024.sa.admin.module.system.position.domain.entity.PositionEntity;

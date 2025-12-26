@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.interceptor;
+package net.lab1024.sa.admin.interceptor;
 
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.exception.SaTokenException;

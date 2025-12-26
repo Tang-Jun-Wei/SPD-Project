@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.config;
+package net.lab1024.sa.base.config;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;

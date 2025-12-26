@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.file.service;
+package net.lab1024.sa.base.module.support.file.service;
 
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.module.support.file.domain.vo.FileDownloadVO;

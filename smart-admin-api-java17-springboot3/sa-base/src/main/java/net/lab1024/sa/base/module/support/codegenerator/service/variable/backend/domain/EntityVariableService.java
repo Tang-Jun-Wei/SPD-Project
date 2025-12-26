@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.codegenerator.service.variable.backend.domain;
+package net.lab1024.sa.base.module.support.codegenerator.service.variable.backend.domain;
 
 import com.google.common.collect.Lists;
 import net.lab1024.sa.base.module.support.codegenerator.domain.form.CodeGeneratorConfigForm;

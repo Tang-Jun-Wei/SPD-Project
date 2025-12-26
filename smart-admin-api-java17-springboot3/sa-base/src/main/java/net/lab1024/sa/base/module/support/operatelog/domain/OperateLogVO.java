@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.operatelog.domain;
+package net.lab1024.sa.base.module.support.operatelog.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;

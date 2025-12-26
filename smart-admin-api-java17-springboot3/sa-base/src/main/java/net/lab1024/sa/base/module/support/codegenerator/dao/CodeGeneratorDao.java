@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.codegenerator.dao;
+package net.lab1024.sa.base.module.support.codegenerator.dao;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import net.lab1024.sa.base.module.support.codegenerator.domain.form.TableQueryForm;

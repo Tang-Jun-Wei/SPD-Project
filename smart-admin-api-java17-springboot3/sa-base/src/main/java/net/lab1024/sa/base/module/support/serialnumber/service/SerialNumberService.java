@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.serialnumber.service;
+package net.lab1024.sa.base.module.support.serialnumber.service;
 
 import net.lab1024.sa.base.module.support.serialnumber.constant.SerialNumberIdEnum;
 

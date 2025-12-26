@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.codegenerator.service;
+package net.lab1024.sa.base.module.support.codegenerator.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

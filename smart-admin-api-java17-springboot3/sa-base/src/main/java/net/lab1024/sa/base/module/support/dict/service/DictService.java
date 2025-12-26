@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.dict.service;
+package net.lab1024.sa.base.module.support.dict.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;

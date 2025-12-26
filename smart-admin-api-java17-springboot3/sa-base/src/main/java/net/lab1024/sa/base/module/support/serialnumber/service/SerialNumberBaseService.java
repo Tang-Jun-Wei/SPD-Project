@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.serialnumber.service;
+package net.lab1024.sa.base.module.support.serialnumber.service;
 
 import com.google.common.collect.Lists;
 import jakarta.annotation.PostConstruct;

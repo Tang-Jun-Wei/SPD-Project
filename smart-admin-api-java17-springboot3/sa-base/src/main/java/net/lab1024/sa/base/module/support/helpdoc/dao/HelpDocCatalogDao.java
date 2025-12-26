@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.helpdoc.dao;
+package net.lab1024.sa.base.module.support.helpdoc.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.lab1024.sa.base.module.support.helpdoc.domain.entity.HelpDocCatalogEntity;

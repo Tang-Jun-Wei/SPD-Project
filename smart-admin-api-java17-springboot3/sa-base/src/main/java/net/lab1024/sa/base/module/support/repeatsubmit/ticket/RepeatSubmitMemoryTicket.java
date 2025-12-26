@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.repeatsubmit.ticket;
+package net.lab1024.sa.base.module.support.repeatsubmit.ticket;
 
 import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;

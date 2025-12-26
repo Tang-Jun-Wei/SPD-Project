@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.apiencrypt.service;
+package net.lab1024.sa.base.module.support.apiencrypt.service;
 
 /**
  * 接口加密、解密 Service

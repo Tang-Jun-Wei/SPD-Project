@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.securityprotect.service;
+package net.lab1024.sa.base.module.support.securityprotect.service;
 
 import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.domain.RequestUser;

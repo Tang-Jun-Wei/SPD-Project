@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.util;
+package net.lab1024.sa.base.common.util;
 
 import com.alibaba.fastjson.JSON;
 import jakarta.servlet.http.HttpServletResponse;

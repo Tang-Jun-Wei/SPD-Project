@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.serialnumber.service.impl;
+package net.lab1024.sa.base.module.support.serialnumber.service.impl;
 
 import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;

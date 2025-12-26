@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.json.serializer;
+package net.lab1024.sa.base.common.json.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

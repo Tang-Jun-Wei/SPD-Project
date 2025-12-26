@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.department.manager;
+package net.lab1024.sa.admin.module.system.department.manager;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

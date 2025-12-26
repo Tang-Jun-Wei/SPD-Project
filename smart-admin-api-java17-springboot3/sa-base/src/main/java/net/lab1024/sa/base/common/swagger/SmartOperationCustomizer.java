@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.swagger;
+package net.lab1024.sa.base.common.swagger;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.annotation.SaCheckRole;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.loginlog;
+package net.lab1024.sa.base.module.support.loginlog;
 
 import net.lab1024.sa.base.common.enumeration.BaseEnum;
 

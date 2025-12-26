@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.apiencrypt.service;
+package net.lab1024.sa.base.module.support.apiencrypt.service;
 
 import cn.hutool.crypto.symmetric.SM4;
 import lombok.extern.slf4j.Slf4j;

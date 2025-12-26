@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.reload.core.domain;
+package net.lab1024.sa.base.module.support.reload.core.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

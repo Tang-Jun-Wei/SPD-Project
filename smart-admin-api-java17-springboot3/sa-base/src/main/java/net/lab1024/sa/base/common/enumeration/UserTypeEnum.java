@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.enumeration;
+package net.lab1024.sa.base.common.enumeration;
 
 /**
  * 用户类型

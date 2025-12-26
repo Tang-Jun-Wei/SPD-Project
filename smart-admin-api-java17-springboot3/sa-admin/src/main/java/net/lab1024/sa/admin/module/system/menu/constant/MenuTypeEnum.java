@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.menu.constant;
+package net.lab1024.sa.admin.module.system.menu.constant;
 
 
 import net.lab1024.sa.base.common.enumeration.BaseEnum;

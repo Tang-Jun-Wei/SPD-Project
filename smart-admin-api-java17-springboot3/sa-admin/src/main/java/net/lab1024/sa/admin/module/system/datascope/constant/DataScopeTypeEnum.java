@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.datascope.constant;
+package net.lab1024.sa.admin.module.system.datascope.constant;
 
 import net.lab1024.sa.base.common.enumeration.BaseEnum;
 

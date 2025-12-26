@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.operatelog.annotation;
+package net.lab1024.sa.base.module.support.operatelog.annotation;
 
 import java.lang.annotation.*;
 

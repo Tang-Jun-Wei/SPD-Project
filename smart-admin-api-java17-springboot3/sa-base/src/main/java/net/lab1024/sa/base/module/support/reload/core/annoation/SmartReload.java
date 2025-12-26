@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.reload.core.annoation;
+package net.lab1024.sa.base.module.support.reload.core.annoation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

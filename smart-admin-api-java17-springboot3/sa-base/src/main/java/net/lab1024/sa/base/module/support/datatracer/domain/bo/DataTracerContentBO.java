@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.datatracer.domain.bo;
+package net.lab1024.sa.base.module.support.datatracer.domain.bo;
 
 import lombok.Data;
 

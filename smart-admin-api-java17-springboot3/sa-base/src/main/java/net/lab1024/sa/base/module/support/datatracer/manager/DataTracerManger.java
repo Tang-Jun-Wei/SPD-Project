@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.datatracer.manager;
+package net.lab1024.sa.base.module.support.datatracer.manager;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.lab1024.sa.base.module.support.datatracer.dao.DataTracerDao;

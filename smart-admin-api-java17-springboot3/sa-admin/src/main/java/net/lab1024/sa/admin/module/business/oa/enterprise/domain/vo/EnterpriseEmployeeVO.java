@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.enterprise.domain.vo;
+package net.lab1024.sa.admin.module.business.oa.enterprise.domain.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

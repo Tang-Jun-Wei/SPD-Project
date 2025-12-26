@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.swagger;
+package net.lab1024.sa.base.common.swagger;
 
 import net.lab1024.sa.base.common.enumeration.BaseEnum;
 

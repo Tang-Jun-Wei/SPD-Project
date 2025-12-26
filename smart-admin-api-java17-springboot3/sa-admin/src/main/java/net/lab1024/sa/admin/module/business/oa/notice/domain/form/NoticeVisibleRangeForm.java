@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.notice.domain.form;
+package net.lab1024.sa.admin.module.business.oa.notice.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

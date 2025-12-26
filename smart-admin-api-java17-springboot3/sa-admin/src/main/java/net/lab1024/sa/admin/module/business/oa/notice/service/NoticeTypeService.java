@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.notice.service;
+package net.lab1024.sa.admin.module.business.oa.notice.service;
 
 import cn.hutool.core.util.StrUtil;
 import jakarta.annotation.Resource;

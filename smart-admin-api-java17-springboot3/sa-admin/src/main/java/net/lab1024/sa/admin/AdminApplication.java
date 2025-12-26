@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin;
+package net.lab1024.sa.admin;
 
 import net.lab1024.sa.base.listener.Ip2RegionListener;
 import net.lab1024.sa.base.listener.LogVariableListener;

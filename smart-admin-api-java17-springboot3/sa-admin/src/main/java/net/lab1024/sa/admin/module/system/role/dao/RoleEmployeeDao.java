@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.role.dao;
+package net.lab1024.sa.admin.module.system.role.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

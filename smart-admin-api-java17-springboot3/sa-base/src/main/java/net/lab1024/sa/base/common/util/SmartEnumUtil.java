@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.util;
+package net.lab1024.sa.base.common.util;
 
 import net.lab1024.sa.base.common.enumeration.BaseEnum;
 import org.apache.commons.collections4.CollectionUtils;

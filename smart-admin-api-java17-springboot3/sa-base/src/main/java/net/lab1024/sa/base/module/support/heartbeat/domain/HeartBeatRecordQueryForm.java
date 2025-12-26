@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.heartbeat.domain;
+package net.lab1024.sa.base.module.support.heartbeat.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

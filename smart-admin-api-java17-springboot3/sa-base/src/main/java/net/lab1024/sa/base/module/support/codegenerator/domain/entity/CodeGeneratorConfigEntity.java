@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.codegenerator.domain.entity;
+package net.lab1024.sa.base.module.support.codegenerator.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

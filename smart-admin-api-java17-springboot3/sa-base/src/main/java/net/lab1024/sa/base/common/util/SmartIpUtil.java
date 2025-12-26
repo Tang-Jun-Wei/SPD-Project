@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.util;
+package net.lab1024.sa.base.common.util;
 
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.base.common.constant.StringConst;

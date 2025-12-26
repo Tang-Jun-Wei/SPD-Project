@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.login.controller;
+package net.lab1024.sa.admin.module.system.login.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.extra.servlet.JakartaServletUtil;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.code;
+package net.lab1024.sa.base.common.code;
 
 import static net.lab1024.sa.base.common.code.ErrorCodeRangeContainer.register;
 

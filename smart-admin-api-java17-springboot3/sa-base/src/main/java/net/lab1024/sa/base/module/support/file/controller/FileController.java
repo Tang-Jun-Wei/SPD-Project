@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.file.controller;
+package net.lab1024.sa.base.module.support.file.controller;
 
 import cn.hutool.extra.servlet.JakartaServletUtil;
 import io.swagger.v3.oas.annotations.Operation;

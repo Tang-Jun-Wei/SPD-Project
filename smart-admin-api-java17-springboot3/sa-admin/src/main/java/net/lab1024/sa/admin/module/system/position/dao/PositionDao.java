@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.position.dao;
+package net.lab1024.sa.admin.module.system.position.dao;
 
 import java.util.List;
 import net.lab1024.sa.admin.module.system.position.domain.entity.PositionEntity;

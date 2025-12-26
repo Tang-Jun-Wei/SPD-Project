@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.datatracer.domain.form;
+package net.lab1024.sa.base.module.support.datatracer.domain.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.mail.constant;
+package net.lab1024.sa.base.module.support.mail.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

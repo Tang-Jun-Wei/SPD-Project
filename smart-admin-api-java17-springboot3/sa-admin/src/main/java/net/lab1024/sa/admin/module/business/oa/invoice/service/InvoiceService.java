@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.invoice.service;
+package net.lab1024.sa.admin.module.business.oa.invoice.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;

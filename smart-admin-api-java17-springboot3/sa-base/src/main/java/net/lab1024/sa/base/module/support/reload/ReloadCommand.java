@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.reload;
+package net.lab1024.sa.base.module.support.reload;
 
 import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.util.SmartBeanUtil;

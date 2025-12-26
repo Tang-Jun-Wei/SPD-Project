@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.config;
+package net.lab1024.sa.base.module.support.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

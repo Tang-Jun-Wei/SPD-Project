@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.captcha;
+package net.lab1024.sa.base.module.support.captcha;
 
 
 import io.swagger.v3.oas.annotations.Operation;

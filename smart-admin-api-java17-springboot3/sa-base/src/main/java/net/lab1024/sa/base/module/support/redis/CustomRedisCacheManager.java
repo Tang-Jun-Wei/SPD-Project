@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.redis;
+package net.lab1024.sa.base.module.support.redis;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;

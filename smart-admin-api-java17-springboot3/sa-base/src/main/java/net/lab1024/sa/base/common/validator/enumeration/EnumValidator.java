@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.validator.enumeration;
+package net.lab1024.sa.base.common.validator.enumeration;
 
 
 import jakarta.validation.ConstraintValidator;

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.helpdoc.domain.vo;
+package net.lab1024.sa.base.module.support.helpdoc.domain.vo;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;

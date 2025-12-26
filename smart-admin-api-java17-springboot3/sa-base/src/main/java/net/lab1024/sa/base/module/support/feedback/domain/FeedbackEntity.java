@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.feedback.domain;
+package net.lab1024.sa.base.module.support.feedback.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

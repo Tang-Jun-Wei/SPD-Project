@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.constant;
+package net.lab1024.sa.base.common.constant;
 
 /**
  * 字符串常量

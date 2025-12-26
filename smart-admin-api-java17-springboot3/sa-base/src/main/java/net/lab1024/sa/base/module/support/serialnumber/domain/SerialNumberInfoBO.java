@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.serialnumber.domain;
+package net.lab1024.sa.base.module.support.serialnumber.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

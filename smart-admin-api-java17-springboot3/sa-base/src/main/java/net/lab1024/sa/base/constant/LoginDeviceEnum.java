@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.constant;
+package net.lab1024.sa.base.constant;
 
 import net.lab1024.sa.base.common.enumeration.BaseEnum;
 

@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.heartbeat.core;
+package net.lab1024.sa.base.module.support.heartbeat.core;
 
 import cn.hutool.core.net.NetUtil;
 import org.apache.commons.lang3.StringUtils;

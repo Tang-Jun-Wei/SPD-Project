@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.position.domain.form;
+package net.lab1024.sa.admin.module.system.position.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

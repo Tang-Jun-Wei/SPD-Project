@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.helpdoc.service;
+package net.lab1024.sa.base.module.support.helpdoc.service;
 
 import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.domain.ResponseDTO;

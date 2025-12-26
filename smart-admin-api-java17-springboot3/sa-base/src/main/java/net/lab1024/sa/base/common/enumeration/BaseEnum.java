@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.enumeration;
+package net.lab1024.sa.base.common.enumeration;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONAware;

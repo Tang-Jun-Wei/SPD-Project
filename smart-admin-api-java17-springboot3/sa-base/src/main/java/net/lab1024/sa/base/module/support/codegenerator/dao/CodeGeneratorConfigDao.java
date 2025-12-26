@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.codegenerator.dao;
+package net.lab1024.sa.base.module.support.codegenerator.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.lab1024.sa.base.module.support.codegenerator.domain.entity.CodeGeneratorConfigEntity;

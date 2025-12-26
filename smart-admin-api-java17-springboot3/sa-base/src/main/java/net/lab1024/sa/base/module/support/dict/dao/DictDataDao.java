@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.dict.dao;
+package net.lab1024.sa.base.module.support.dict.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.lab1024.sa.base.module.support.dict.domain.entity.DictDataEntity;

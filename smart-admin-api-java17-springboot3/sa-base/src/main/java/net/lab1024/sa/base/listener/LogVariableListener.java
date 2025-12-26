@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.listener;
+package net.lab1024.sa.base.listener;
 
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.context.logging.LoggingApplicationListener;

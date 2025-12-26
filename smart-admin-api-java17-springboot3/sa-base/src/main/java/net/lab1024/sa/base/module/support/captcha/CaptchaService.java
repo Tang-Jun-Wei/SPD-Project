@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.captcha;
+package net.lab1024.sa.base.module.support.captcha;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;

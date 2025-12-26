@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.role.controller;
+package net.lab1024.sa.admin.module.system.role.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.v3.oas.annotations.Operation;

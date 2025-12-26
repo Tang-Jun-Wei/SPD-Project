@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.reload.dao;
+package net.lab1024.sa.base.module.support.reload.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.lab1024.sa.base.module.support.reload.domain.ReloadResultEntity;

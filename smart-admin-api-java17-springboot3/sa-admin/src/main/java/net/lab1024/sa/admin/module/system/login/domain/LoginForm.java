@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.login.domain;
+package net.lab1024.sa.admin.module.system.login.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

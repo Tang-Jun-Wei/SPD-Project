@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.serialnumber.service.impl;
+package net.lab1024.sa.base.module.support.serialnumber.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.base.common.exception.BusinessException;

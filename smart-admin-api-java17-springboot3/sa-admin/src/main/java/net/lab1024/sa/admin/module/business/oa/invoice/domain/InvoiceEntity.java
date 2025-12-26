@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.invoice.domain;
+package net.lab1024.sa.admin.module.business.oa.invoice.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

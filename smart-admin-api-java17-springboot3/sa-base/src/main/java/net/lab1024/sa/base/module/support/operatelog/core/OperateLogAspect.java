@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.operatelog.core;
+package net.lab1024.sa.base.module.support.operatelog.core;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;

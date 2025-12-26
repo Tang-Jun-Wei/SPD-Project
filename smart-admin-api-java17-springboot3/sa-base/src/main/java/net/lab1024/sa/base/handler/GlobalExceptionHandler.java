@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.handler;
+package net.lab1024.sa.base.handler;
 
 import cn.dev33.satoken.exception.NotPermissionException;
 import jakarta.annotation.Resource;

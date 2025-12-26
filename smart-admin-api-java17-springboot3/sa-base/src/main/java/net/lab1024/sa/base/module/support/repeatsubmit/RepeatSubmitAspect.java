@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.repeatsubmit;
+package net.lab1024.sa.base.module.support.repeatsubmit;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;

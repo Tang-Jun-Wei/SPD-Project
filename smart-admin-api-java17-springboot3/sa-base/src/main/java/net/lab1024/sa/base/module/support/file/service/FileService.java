@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.file.service;
+package net.lab1024.sa.base.module.support.file.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

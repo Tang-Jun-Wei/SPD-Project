@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.operatelog;
+package net.lab1024.sa.base.module.support.operatelog;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

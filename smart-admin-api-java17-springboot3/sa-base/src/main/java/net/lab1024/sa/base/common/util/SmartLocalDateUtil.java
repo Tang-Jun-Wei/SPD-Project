@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.util;
+package net.lab1024.sa.base.common.util;
 
 import java.time.*;
 import java.time.format.TextStyle;

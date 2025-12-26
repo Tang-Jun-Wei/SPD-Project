@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.json.deserializer;
+package net.lab1024.sa.base.common.json.deserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;

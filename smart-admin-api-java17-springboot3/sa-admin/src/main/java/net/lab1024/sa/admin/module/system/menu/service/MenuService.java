@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.menu.service;
+package net.lab1024.sa.admin.module.system.menu.service;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.google.common.collect.Lists;

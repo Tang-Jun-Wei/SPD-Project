@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.common.domain;
+package net.lab1024.sa.base.common.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;

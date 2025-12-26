@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.base.module.support.changelog.dao;
+package net.lab1024.sa.base.module.support.changelog.dao;
 
 import java.util.List;
 

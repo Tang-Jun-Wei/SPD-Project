@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.business.oa.notice.constant;
+package net.lab1024.sa.admin.module.business.oa.notice.constant;
 
 
 import lombok.AllArgsConstructor;

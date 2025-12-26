@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.department.dao;
+package net.lab1024.sa.admin.module.system.department.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.lab1024.sa.admin.module.system.department.domain.entity.DepartmentEntity;

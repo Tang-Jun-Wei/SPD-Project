@@ -1,4 +1,4 @@
-﻿package net.lab1024.sa.admin.module.system.datascope.service;
+package net.lab1024.sa.admin.module.system.datascope.service;
 
 import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
