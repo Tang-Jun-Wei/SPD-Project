@@ -45,6 +45,7 @@ tomcat-logs/
 apache-maven-3.9.6/
 nodejs/
 Redis-x64-3.0.504/
+jdk/
 
 # Temp files
 *.tmp
