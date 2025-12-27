@@ -17,9 +17,26 @@ public class SpdStockService {
     @Autowired
     private SpdStockDao spdStockDao;
 
+    /**
+     * 分页查询库存
+     */
     public PageResult<SpdStockVO> queryPage(SpdStockQueryForm queryForm) {
         Page<?> page = SmartPageUtil.convert2PageQuery(queryForm);
         List<SpdStockVO> list = spdStockDao.queryPage(page, queryForm, 0);
         return SmartPageUtil.convert2PageResult(page, list);
+    }
+
+    /**
+     * 批号汇总查询（按批号聚合）
+     */
+    public List<SpdStockVO> queryBatchSummary(SpdStockQueryForm queryForm) {
+        return spdStockDao.queryBatchSummary(queryForm);
+    }
+
+    /**
+     * 查询批号明细
+     */
+    public List<SpdStockVO> queryBatchDetail(String batchId, String warehouseId) {
+        return spdStockDao.queryBatchDetail(batchId, warehouseId);
     }
 }
