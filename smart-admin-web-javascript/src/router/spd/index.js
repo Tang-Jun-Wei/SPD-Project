@@ -239,4 +239,16 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
-      // 库存
+      // 库存统计报表
+      {
+        path: 'inventory-report',
+        name: 'SpdInventoryReport',
+        component: () => import('/@/views/spd/inventory-report/inventory-report.vue'),
+        meta: {
+          title: '库存统计报表',
+          hideInMenu: false,
+        },
+      },
+    ],
+  },
+];
