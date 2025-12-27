@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.acceptance.dao.SpdAcceptanceDetailDao">
+
+    <select id="queryByAcceptanceId" resultType="net.lab1024.sa.admin.module.spd.acceptance.domain.vo.SpdAcceptanceDetailVO">
+        SELECT 
+            ad.id,
+            ad.acceptance_id AS acceptanceId,
+            ad.material_id AS materialId,
+            ad.batch_id AS batchId,
+            ad.acceptance_quantity AS acceptanceQuantity,
+            ad.qualified_quantity AS qualifiedQuantity,
+            ad.unqualified_quantity AS unqualifiedQuantity,
+            ad.unit_price AS unitPrice,
+            ad.total_price AS totalPrice,
+            ad.quality_status AS qualityStatus,
+            ad.remark,
+            ad.create_time AS createTime
+        FROM spd_acceptance_detail ad
+        WHERE ad.acceptance_id = #{acceptanceId}
+        AND ad.del_flag = #{delFlag}
+        ORDER BY ad.id
+    </select>
+
+</mapper>

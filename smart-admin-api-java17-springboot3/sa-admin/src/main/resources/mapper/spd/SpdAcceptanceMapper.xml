@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.acceptance.dao.SpdAcceptanceDao">
+
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.acceptance.domain.vo.SpdAcceptanceVO">
+        SELECT 
+            a.id,
+            a.acceptance_id AS acceptanceId,
+            a.acceptance_no AS acceptanceNo,
+            a.purchase_id AS purchaseId,
+            a.warehouse_id AS warehouseId,
+            a.acceptance_date AS acceptanceDate,
+            a.acceptance_by AS acceptanceBy,
+            a.acceptance_status AS acceptanceStatus,
+            a.total_amount AS totalAmount,
+            a.remark,
+            a.create_by AS createBy,
+            a.create_time AS createTime
+        FROM spd_acceptance a
+        WHERE a.del_flag = #{delFlag}
+        <if test="query.acceptanceNo != null and query.acceptanceNo != ''">
+            AND a.acceptance_no LIKE CONCAT('%', #{query.acceptanceNo}, '%')
+        </if>
+        <if test="query.purchaseId != null and query.purchaseId != ''">
+            AND a.purchase_id = #{query.purchaseId}
+        </if>
+        <if test="query.warehouseId != null and query.warehouseId != ''">
+            AND a.warehouse_id = #{query.warehouseId}
+        </if>
+        <if test="query.acceptanceStatus != null">
+            AND a.acceptance_status = #{query.acceptanceStatus}
+        </if>
+        <if test="query.acceptanceBy != null and query.acceptanceBy != ''">
+            AND a.acceptance_by = #{query.acceptanceBy}
+        </if>
+        <if test="query.startDate != null">
+            AND a.acceptance_date &gt;= #{query.startDate}
+        </if>
+        <if test="query.endDate != null">
+            AND a.acceptance_date &lt;= #{query.endDate}
+        </if>
+        ORDER BY a.create_time DESC
+    </select>
+
+    <select id="queryDetail" resultType="net.lab1024.sa.admin.module.spd.acceptance.domain.vo.SpdAcceptanceVO">
+        SELECT 
+            a.id,
+            a.acceptance_id AS acceptanceId,
+            a.acceptance_no AS acceptanceNo,
+            a.purchase_id AS purchaseId,
+            a.warehouse_id AS warehouseId,
+            a.acceptance_date AS acceptanceDate,
+            a.acceptance_by AS acceptanceBy,
+            a.acceptance_status AS acceptanceStatus,
+            a.total_amount AS totalAmount,
+            a.remark,
+            a.create_by AS createBy,
+            a.create_time AS createTime
+        FROM spd_acceptance a
+        WHERE a.acceptance_id = #{acceptanceId}
+        AND a.del_flag = #{delFlag}
+    </select>
+
+</mapper>
