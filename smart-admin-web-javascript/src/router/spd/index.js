@@ -189,6 +189,16 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
+      // 科室收货管理
+      {
+        path: 'dept-receive',
+        name: 'SpdDeptReceive',
+        component: () => import('/@/views/spd/dept-receive/dept-receive-list.vue'),
+        meta: {
+          title: '科室收货管理',
+          hideInMenu: false,
+        },
+      },
       // 库存统计报表
       {
         path: 'inventory-report',
