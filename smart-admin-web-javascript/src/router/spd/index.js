@@ -49,6 +49,16 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
+      // 打包单管理
+      {
+        path: 'package',
+        name: 'SpdPackage',
+        component: () => import('/@/views/spd/package/package-list.vue'),
+        meta: {
+          title: '打包单管理',
+          hideInMenu: false,
+        },
+      },
       // 标签管理（定数包）
       {
         path: 'label',
