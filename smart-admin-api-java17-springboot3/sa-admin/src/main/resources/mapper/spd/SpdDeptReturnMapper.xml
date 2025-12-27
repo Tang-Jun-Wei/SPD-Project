@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.deptreturn.dao.SpdDeptReturnDao">
+
+    <!-- 分页查询退库单列表 -->
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.deptreturn.domain.vo.SpdDeptReturnVO">
+        SELECT 
+            r.id,
+            r.return_id AS returnId,
+            r.return_code AS returnCode,
+            r.from_node_id AS fromNodeId,
+            fn.node_name AS fromNodeName,
+            r.to_node_id AS toNodeId,
+            tn.node_name AS toNodeName,
+            r.return_status AS returnStatus,
+            r.return_type AS returnType,
+            r.apply_user_id AS applyUserId,
+            r.apply_time AS applyTime,
+            r.audit_user_id AS auditUserId,
+            r.audit_time AS auditTime,
+            r.audit_opinion AS auditOpinion,
+            r.remark,
+            r.create_time AS createTime
+        FROM spd_dept_return r
+        LEFT JOIN spd_org_node fn ON r.from_node_id = fn.node_id AND fn.del_flag = 0
+        LEFT JOIN spd_org_node tn ON r.to_node_id = tn.node_id AND tn.del_flag = 0
+        WHERE r.del_flag = 0
+        <if test="form.returnStatus != null">
+            AND r.return_status = #{form.returnStatus}
+        </if>
+        <if test="form.returnType != null">
+            AND r.return_type = #{form.returnType}
+        </if>
+        <if test="form.returnCode != null and form.returnCode != ''">
+            AND r.return_code LIKE CONCAT('%', #{form.returnCode}, '%')
+        </if>
+        ORDER BY r.create_time DESC
+    </select>
+
+    <!-- 查询退库单详情 -->
+    <select id="getDetail" resultType="net.lab1024.sa.admin.module.spd.deptreturn.domain.vo.SpdDeptReturnVO">
+        SELECT 
+            r.id,
+            r.return_id AS returnId,
+            r.return_code AS returnCode,
+            r.from_node_id AS fromNodeId,
+            fn.node_name AS fromNodeName,
+            r.to_node_id AS toNodeId,
+            tn.node_name AS toNodeName,
+            r.return_status AS returnStatus,
+            r.return_type AS returnType,
+            r.apply_user_id AS applyUserId,
+            r.apply_time AS applyTime,
+            r.audit_user_id AS auditUserId,
+            r.audit_time AS auditTime,
+            r.audit_opinion AS auditOpinion,
+            r.remark,
+            r.create_time AS createTime
+        FROM spd_dept_return r
+        LEFT JOIN spd_org_node fn ON r.from_node_id = fn.node_id AND fn.del_flag = 0
+        LEFT JOIN spd_org_node tn ON r.to_node_id = tn.node_id AND tn.del_flag = 0
+        WHERE r.del_flag = 0
+          AND r.return_id = #{returnId}
+    </select>
+
+</mapper>
