@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.deptconsume.dao.SpdDeptConsumeDao">
+
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.deptconsume.domain.vo.SpdDeptConsumeVO">
+        SELECT
+            consume_id,
+            consume_no,
+            dept_id,
+            dept_name,
+            consume_type,
+            consume_date,
+            consume_user_id,
+            consume_user_name,
+            patient_name,
+            patient_no,
+            total_quantity,
+            total_amount,
+            status,
+            remark,
+            create_user_name,
+            create_time
+        FROM spd_dept_consume
+        WHERE del_flag = 0
+        <if test="query.consumeNo != null and query.consumeNo != ''">
+            AND consume_no LIKE CONCAT('%', #{query.consumeNo}, '%')
+        </if>
+        <if test="query.deptId != null">
+            AND dept_id = #{query.deptId}
+        </if>
+        <if test="query.consumeType != null">
+            AND consume_type = #{query.consumeType}
+        </if>
+        <if test="query.patientName != null and query.patientName != ''">
+            AND patient_name LIKE CONCAT('%', #{query.patientName}, '%')
+        </if>
+        <if test="query.patientNo != null and query.patientNo != ''">
+            AND patient_no LIKE CONCAT('%', #{query.patientNo}, '%')
+        </if>
+        <if test="query.status != null">
+            AND status = #{query.status}
+        </if>
+        <if test="query.startTime != null">
+            AND consume_date &gt;= #{query.startTime}
+        </if>
+        <if test="query.endTime != null">
+            AND consume_date &lt;= #{query.endTime}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

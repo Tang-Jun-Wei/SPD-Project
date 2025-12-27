@@ -199,6 +199,16 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
+      // 科室消耗管理
+      {
+        path: 'dept-consume',
+        name: 'SpdDeptConsume',
+        component: () => import('/@/views/spd/dept-consume/dept-consume-list.vue'),
+        meta: {
+          title: '科室消耗管理',
+          hideInMenu: false,
+        },
+      },
       // 库存统计报表
       {
         path: 'inventory-report',
