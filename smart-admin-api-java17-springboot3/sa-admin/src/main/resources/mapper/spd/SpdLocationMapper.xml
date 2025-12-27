@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.location.dao.SpdLocationDao">
+
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.location.domain.vo.SpdLocationVO">
+        SELECT 
+            l.id,
+            l.location_id AS locationId,
+            l.location_code AS locationCode,
+            l.location_name AS locationName,
+            l.node_id AS nodeId,
+            n.node_name AS nodeName,
+            l.location_level AS locationLevel,
+            l.location_type AS locationType,
+            l.max_capacity AS maxCapacity,
+            l.current_quantity AS currentQuantity,
+            l.location_status AS locationStatus,
+            l.remark,
+            l.create_time AS createTime
+        FROM spd_location l
+        LEFT JOIN spd_org_node n ON l.node_id = n.node_id AND n.del_flag = 0
+        WHERE l.del_flag = 0
+        <if test="form.locationCode != null and form.locationCode != ''">
+            AND l.location_code LIKE CONCAT('%', #{form.locationCode}, '%')
+        </if>
+        <if test="form.locationName != null and form.locationName != ''">
+            AND l.location_name LIKE CONCAT('%', #{form.locationName}, '%')
+        </if>
+        <if test="form.nodeId != null and form.nodeId != ''">
+            AND l.node_id = #{form.nodeId}
+        </if>
+        <if test="form.locationStatus != null">
+            AND l.location_status = #{form.locationStatus}
+        </if>
+        ORDER BY l.create_time DESC
+    </select>
+
+</mapper>

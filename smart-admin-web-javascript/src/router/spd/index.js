@@ -149,6 +149,16 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
+      // 货位管理
+      {
+        path: 'location',
+        name: 'SpdLocation',
+        component: () => import('/@/views/spd/location/location-list.vue'),
+        meta: {
+          title: '货位管理',
+          hideInMenu: false,
+        },
+      },
       // 库存统计报表
       {
         path: 'inventory-report',
