@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.allocation.dao.SpdDeptAllocationDao">
+
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.allocation.domain.vo.SpdDeptAllocationVO">
+        SELECT 
+            a.id,
+            a.allocation_id AS allocationId,
+            a.allocation_code AS allocationCode,
+            a.from_node_id AS fromNodeId,
+            fn.node_name AS fromNodeName,
+            a.to_node_id AS toNodeId,
+            tn.node_name AS toNodeName,
+            a.allocation_status AS allocationStatus,
+            a.apply_user_id AS applyUserId,
+            a.apply_time AS applyTime,
+            a.audit_user_id AS auditUserId,
+            a.audit_time AS auditTime,
+            a.audit_opinion AS auditOpinion,
+            a.remark,
+            a.create_time AS createTime
+        FROM spd_dept_allocation a
+        LEFT JOIN spd_org_node fn ON a.from_node_id = fn.node_id AND fn.del_flag = 0
+        LEFT JOIN spd_org_node tn ON a.to_node_id = tn.node_id AND tn.del_flag = 0
+        WHERE a.del_flag = 0
+        <if test="form.allocationCode != null and form.allocationCode != ''">
+            AND a.allocation_code LIKE CONCAT('%', #{form.allocationCode}, '%')
+        </if>
+        <if test="form.allocationStatus != null">
+            AND a.allocation_status = #{form.allocationStatus}
+        </if>
+        ORDER BY a.create_time DESC
+    </select>
+
+    <select id="getDetail" resultType="net.lab1024.sa.admin.module.spd.allocation.domain.vo.SpdDeptAllocationVO">
+        SELECT 
+            a.id,
+            a.allocation_id AS allocationId,
+            a.allocation_code AS allocationCode,
+            a.from_node_id AS fromNodeId,
+            fn.node_name AS fromNodeName,
+            a.to_node_id AS toNodeId,
+            tn.node_name AS toNodeName,
+            a.allocation_status AS allocationStatus,
+            a.apply_user_id AS applyUserId,
+            a.apply_time AS applyTime,
+            a.audit_user_id AS auditUserId,
+            a.audit_time AS auditTime,
+            a.audit_opinion AS auditOpinion,
+            a.remark,
+            a.create_time AS createTime
+        FROM spd_dept_allocation a
+        LEFT JOIN spd_org_node fn ON a.from_node_id = fn.node_id AND fn.del_flag = 0
+        LEFT JOIN spd_org_node tn ON a.to_node_id = tn.node_id AND tn.del_flag = 0
+        WHERE a.allocation_id = #{allocationId} AND a.del_flag = 0
+    </select>
+
+</mapper>
