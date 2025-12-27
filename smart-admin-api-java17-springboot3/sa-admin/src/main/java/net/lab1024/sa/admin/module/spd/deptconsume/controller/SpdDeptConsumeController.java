@@ -14,7 +14,7 @@ import net.lab1024.sa.base.common.util.SmartRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 /**
  * 科室消耗Controller
