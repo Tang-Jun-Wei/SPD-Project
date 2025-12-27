@@ -81,7 +81,11 @@
           <a-input-number v-model:value="record.unitPrice" :min="0" :precision="2" style="width: 100%" />
         </template>
         <template v-if="column.dataIndex === 'qualityStatus'">
-          <a-input v-model:value="record.qualityStatus" placeholder="质量状态" />
+          <a-select v-model:value="record.qualityStatus" placeholder="请选择质量状态" style="width: 100%" allowClear>
+            <a-select-option value="1">合格</a-select-option>
+            <a-select-option value="2">不合格</a-select-option>
+            <a-select-option value="3">待检验</a-select-option>
+          </a-select>
         </template>
         <template v-if="column.dataIndex === 'remark'">
           <a-input v-model:value="record.remark" placeholder="备注" />

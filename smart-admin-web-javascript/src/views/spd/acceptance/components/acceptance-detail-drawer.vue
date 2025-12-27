@@ -28,6 +28,12 @@
           <template v-if="column.dataIndex === 'unitPrice'">
             ¥ {{ text }}
           </template>
+          <template v-if="column.dataIndex === 'qualityStatus'">
+            <a-tag v-if="text === '1'" color="green">合格</a-tag>
+            <a-tag v-else-if="text === '2'" color="red">不合格</a-tag>
+            <a-tag v-else-if="text === '3'" color="blue">待检验</a-tag>
+            <span v-else>{{ text || '-' }}</span>
+          </template>
         </template>
       </a-table>
     </a-spin>
