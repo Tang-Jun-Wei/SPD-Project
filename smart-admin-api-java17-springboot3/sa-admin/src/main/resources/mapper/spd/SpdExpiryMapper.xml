@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.expiry.dao.SpdExpiryDao">
+
+    <!-- 查询效期统计 -->
+    <select id="selectStatistics" resultType="net.lab1024.sa.admin.module.spd.expiry.domain.vo.SpdExpiryStatisticsVO">
+        SELECT
+            SUM(CASE WHEN DATEDIFF(expiry_date, CURDATE()) &lt;= 0 THEN 1 ELSE 0 END) as expired_count,
+            SUM(CASE WHEN DATEDIFF(expiry_date, CURDATE()) BETWEEN 1 AND 30 THEN 1 ELSE 0 END) as soon_expire_count,
+            SUM(CASE WHEN DATEDIFF(expiry_date, CURDATE()) BETWEEN 31 AND 60 THEN 1 ELSE 0 END) as near_expire_count,
+            SUM(CASE WHEN DATEDIFF(expiry_date, CURDATE()) &gt; 60 THEN 1 ELSE 0 END) as normal_count,
+            COUNT(*) as total_count
+        FROM spd_stock
+        WHERE del_flag = 0
+        AND expiry_date IS NOT NULL
+    </select>
+
+    <!-- 分页查询效期预警列表 -->
+    <select id="queryWarningPage" resultType="net.lab1024.sa.admin.module.spd.expiry.domain.vo.SpdExpiryWarningVO">
+        SELECT
+            s.stock_id,
+            s.material_code,
+            s.material_name,
+            s.specification,
+            s.unit,
+            s.batch_no,
+            s.expiry_date,
+            DATEDIFF(s.expiry_date, CURDATE()) as remain_days,
+            s.quantity,
+            s.warehouse_name,
+            s.location_name,
+            s.manufacturer,
+            CASE
+                WHEN DATEDIFF(s.expiry_date, CURDATE()) &lt;= 0 THEN 4
+                WHEN DATEDIFF(s.expiry_date, CURDATE()) BETWEEN 1 AND 30 THEN 3
+                WHEN DATEDIFF(s.expiry_date, CURDATE()) BETWEEN 31 AND 60 THEN 2
+                ELSE 1
+            END as warning_level
+        FROM spd_stock s
+        WHERE s.del_flag = 0
+        AND s.expiry_date IS NOT NULL
+        <if test="query.materialName != null and query.materialName != ''">
+            AND s.material_name LIKE CONCAT('%', #{query.materialName}, '%')
+        </if>
+        <if test="query.batchNo != null and query.batchNo != ''">
+            AND s.batch_no LIKE CONCAT('%', #{query.batchNo}, '%')
+        </if>
+        <if test="query.warehouseId != null">
+            AND s.warehouse_id = #{query.warehouseId}
+        </if>
+        <if test="query.warningLevel != null">
+            AND CASE
+                WHEN DATEDIFF(s.expiry_date, CURDATE()) &lt;= 0 THEN 4
+                WHEN DATEDIFF(s.expiry_date, CURDATE()) BETWEEN 1 AND 30 THEN 3
+                WHEN DATEDIFF(s.expiry_date, CURDATE()) BETWEEN 31 AND 60 THEN 2
+                ELSE 1
+            END = #{query.warningLevel}
+        </if>
+        ORDER BY remain_days ASC, s.create_time DESC
+    </select>
+
+</mapper>

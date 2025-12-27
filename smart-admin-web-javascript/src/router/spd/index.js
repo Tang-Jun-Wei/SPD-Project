@@ -123,7 +123,7 @@ export const spdRouters = [
       {
         path: 'expiry-monitor',
         name: 'SpdExpiryMonitor',
-        component: () => import('/@/views/spd/expiry/expiry-monitor.vue'),
+        component: () => import('/@/views/spd/expiry-monitor/expiry-monitor.vue'),
         meta: {
           title: '库存效期监控',
           hideInMenu: false,
