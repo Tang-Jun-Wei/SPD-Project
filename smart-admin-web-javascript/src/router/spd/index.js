@@ -159,6 +159,16 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
+      // 科室调拨管理
+      {
+        path: 'allocation',
+        name: 'SpdAllocation',
+        component: () => import('/@/views/spd/allocation/allocation-list.vue'),
+        meta: {
+          title: '科室调拨管理',
+          hideInMenu: false,
+        },
+      },
       // 库存统计报表
       {
         path: 'inventory-report',

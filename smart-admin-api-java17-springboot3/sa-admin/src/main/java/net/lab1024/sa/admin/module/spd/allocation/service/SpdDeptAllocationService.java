@@ -31,6 +31,9 @@ public class SpdDeptAllocationService {
     @Resource
     private SpdDeptAllocationDetailDao spdDeptAllocationDetailDao;
 
+    /**
+     * 分页查询调拨单列表
+     */
     public ResponseDTO<PageResult<SpdDeptAllocationVO>> queryPage(Object form) {
         Page<SpdDeptAllocationVO> page = SmartPageUtil.convert2PageQuery(form);
         Page<SpdDeptAllocationVO> pageResult = spdDeptAllocationDao.queryPage(page, form);
@@ -38,11 +41,17 @@ public class SpdDeptAllocationService {
         return ResponseDTO.ok(result);
     }
 
+    /**
+     * 查询调拨单详情
+     */
     public ResponseDTO<SpdDeptAllocationVO> getDetail(String allocationId) {
         SpdDeptAllocationVO detail = spdDeptAllocationDao.getDetail(allocationId);
         return ResponseDTO.ok(detail);
     }
 
+    /**
+     * 新增调拨单（主表+明细表事务）
+     */
     @Transactional(rollbackFor = Exception.class)
     public ResponseDTO<String> add(SpdDeptAllocationForm form, String loginUserId, String tenantId) {
         String allocationId = generateAllocationId();
@@ -80,6 +89,9 @@ public class SpdDeptAllocationService {
         return ResponseDTO.ok("新增成功");
     }
 
+    /**
+     * 审核调拨单（通过/驳回）
+     */
     @Transactional(rollbackFor = Exception.class)
     public ResponseDTO<String> audit(String allocationId, Integer auditStatus, String auditOpinion, String loginUserId) {
         SpdDeptAllocationEntity entity = spdDeptAllocationDao.selectOne(
@@ -107,6 +119,9 @@ public class SpdDeptAllocationService {
         return ResponseDTO.ok("审核成功");
     }
 
+    /**
+     * 删除调拨单（仅待审核状态可删除，级联删除明细）
+     */
     @Transactional(rollbackFor = Exception.class)
     public ResponseDTO<String> delete(String allocationId, String loginUserId) {
         SpdDeptAllocationEntity entity = spdDeptAllocationDao.selectOne(
@@ -140,6 +155,9 @@ public class SpdDeptAllocationService {
         return ResponseDTO.ok("删除成功");
     }
 
+    /**
+     * 生成调拨单业务ID
+     */
     private String generateAllocationId() {
         String prefix = "ALLOC";
         String dateStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
