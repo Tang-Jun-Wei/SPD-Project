@@ -169,6 +169,16 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
+      // 科室退库管理
+      {
+        path: 'dept-return',
+        name: 'SpdDeptReturn',
+        component: () => import('/@/views/spd/dept-return/return-list.vue'),
+        meta: {
+          title: '科室退库管理',
+          hideInMenu: false,
+        },
+      },
       // 库存统计报表
       {
         path: 'inventory-report',
