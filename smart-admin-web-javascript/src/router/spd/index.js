@@ -179,6 +179,16 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
+      // 退供应商管理
+      {
+        path: 'supplier-return',
+        name: 'SpdSupplierReturn',
+        component: () => import('/@/views/spd/supplier-return/supplier-return-list.vue'),
+        meta: {
+          title: '退供应商管理',
+          hideInMenu: false,
+        },
+      },
       // 库存统计报表
       {
         path: 'inventory-report',
