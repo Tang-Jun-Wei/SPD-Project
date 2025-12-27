@@ -12,6 +12,8 @@ import net.lab1024.sa.base.common.util.SmartPageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 库存效期Service
  *
@@ -37,8 +39,8 @@ public class SpdExpiryService {
      */
     public ResponseDTO<PageResult<SpdExpiryWarningVO>> queryWarningPage(SpdExpiryWarningQueryForm queryForm) {
         Page<?> page = SmartPageUtil.convert2PageQuery(queryForm);
-        Page<SpdExpiryWarningVO> pageResult = spdExpiryDao.queryWarningPage(page, queryForm);
-        PageResult<SpdExpiryWarningVO> pageResultVO = SmartPageUtil.convert2PageResult(pageResult);
+        List<SpdExpiryWarningVO> list = spdExpiryDao.queryWarningPage(page, queryForm).getRecords();
+        PageResult<SpdExpiryWarningVO> pageResultVO = SmartPageUtil.convert2PageResult(page, list);
         return ResponseDTO.ok(pageResultVO);
     }
 }

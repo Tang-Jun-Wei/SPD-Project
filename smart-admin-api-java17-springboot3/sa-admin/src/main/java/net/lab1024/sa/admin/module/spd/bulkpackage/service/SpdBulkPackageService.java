@@ -42,8 +42,8 @@ public class SpdBulkPackageService {
      */
     public ResponseDTO<PageResult<SpdBulkPackageVO>> queryPage(SpdBulkPackageQueryForm queryForm) {
         Page<?> page = SmartPageUtil.convert2PageQuery(queryForm);
-        Page<SpdBulkPackageVO> pageResult = spdBulkPackageDao.queryPage(page, queryForm);
-        return ResponseDTO.ok(SmartPageUtil.convert2PageResult(pageResult));
+        List<SpdBulkPackageVO> list = spdBulkPackageDao.queryPage(page, queryForm).getRecords();
+        return ResponseDTO.ok(SmartPageUtil.convert2PageResult(page, list));
     }
 
     /**

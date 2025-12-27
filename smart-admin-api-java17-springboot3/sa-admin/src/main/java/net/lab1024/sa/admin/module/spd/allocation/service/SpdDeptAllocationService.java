@@ -9,6 +9,7 @@ import net.lab1024.sa.admin.module.spd.allocation.domain.entity.SpdDeptAllocatio
 import net.lab1024.sa.admin.module.spd.allocation.domain.entity.SpdDeptAllocationEntity;
 import net.lab1024.sa.admin.module.spd.allocation.domain.form.SpdDeptAllocationForm;
 import net.lab1024.sa.admin.module.spd.allocation.domain.vo.SpdDeptAllocationVO;
+import net.lab1024.sa.base.common.domain.PageParam;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.util.SmartBeanUtil;
@@ -34,10 +35,11 @@ public class SpdDeptAllocationService {
     /**
      * 分页查询调拨单列表
      */
+    @SuppressWarnings("unchecked")
     public ResponseDTO<PageResult<SpdDeptAllocationVO>> queryPage(Object form) {
-        Page<SpdDeptAllocationVO> page = SmartPageUtil.convert2PageQuery(form);
-        Page<SpdDeptAllocationVO> pageResult = spdDeptAllocationDao.queryPage(page, form);
-        PageResult<SpdDeptAllocationVO> result = SmartPageUtil.convert2PageResult(pageResult);
+        Page page = SmartPageUtil.convert2PageQuery((PageParam) form);
+        List<SpdDeptAllocationVO> list = spdDeptAllocationDao.queryPage(page, form).getRecords();
+        PageResult<SpdDeptAllocationVO> result = SmartPageUtil.convert2PageResult(page, list);
         return ResponseDTO.ok(result);
     }
 

@@ -37,14 +37,13 @@ tomcat-logs/
 .env.local
 .env.*.local
 
-# Redis & Database
+# Redis & Database data files (keep Redis binaries)
 *.rdb
 *.aof
 
-# Project specific - exclude local tools
+# Project specific - exclude local tools (keep Redis embedded)
 apache-maven-3.9.6/
 nodejs/
-Redis-x64-3.0.504/
 jdk/
 
 # Temp files

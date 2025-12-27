@@ -28,15 +28,17 @@ public class SpdStockService {
 
     /**
      * 批号汇总查询（按批号聚合）
+     * TODO: 待实现 - 需要添加SpdStockDao.queryBatchSummary方法
      */
-    public List<SpdStockVO> queryBatchSummary(SpdStockQueryForm queryForm) {
-        return spdStockDao.queryBatchSummary(queryForm);
-    }
+    // public List<SpdStockVO> queryBatchSummary(SpdStockQueryForm queryForm) {
+    //     return spdStockDao.queryBatchSummary(queryForm);
+    // }
 
     /**
      * 查询批号明细
+     * TODO: 待实现 - 需要添加SpdStockDao.queryBatchDetail方法
      */
-    public List<SpdStockVO> queryBatchDetail(String batchId, String warehouseId) {
-        return spdStockDao.queryBatchDetail(batchId, warehouseId);
-    }
+    // public List<SpdStockVO> queryBatchDetail(String batchId, String warehouseId) {
+    //     return spdStockDao.queryBatchDetail(batchId, warehouseId);
+    // }
 }

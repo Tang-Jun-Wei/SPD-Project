@@ -28,16 +28,14 @@ public class SpdDeptCategoryController {
     @GetMapping("/queryTree")
     @SaCheckPermission("spd:deptCategory:query")
     public ResponseDTO<List<SpdDeptCategoryTreeVO>> queryTree() {
-        RequestUser requestUser = SmartRequestUtil.getRequestUser();
-        return spdDeptCategoryService.queryTree(requestUser.getTenantId());
+        return spdDeptCategoryService.queryTree("default");
     }
 
     @Operation(summary = "查询所有科室分类")
     @GetMapping("/queryAll")
     @SaCheckPermission("spd:deptCategory:query")
     public ResponseDTO<List<SpdDeptCategoryTreeVO>> queryAll() {
-        RequestUser requestUser = SmartRequestUtil.getRequestUser();
-        return spdDeptCategoryService.queryAll(requestUser.getTenantId());
+        return spdDeptCategoryService.queryAll("default");
     }
 
     @Operation(summary = "新增科室分类")
@@ -45,7 +43,7 @@ public class SpdDeptCategoryController {
     @SaCheckPermission("spd:deptCategory:add")
     public ResponseDTO<String> add(@Valid @RequestBody SpdDeptCategoryForm form) {
         RequestUser requestUser = SmartRequestUtil.getRequestUser();
-        return spdDeptCategoryService.add(form, requestUser.getUserId().toString(), requestUser.getTenantId());
+        return spdDeptCategoryService.add(form, requestUser.getUserId().toString(), "default");
     }
 
     @Operation(summary = "更新科室分类")

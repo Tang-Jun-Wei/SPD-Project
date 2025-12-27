@@ -9,6 +9,7 @@ import net.lab1024.sa.admin.module.spd.supplierreturn.domain.entity.SpdSupplierR
 import net.lab1024.sa.admin.module.spd.supplierreturn.domain.entity.SpdSupplierReturnEntity;
 import net.lab1024.sa.admin.module.spd.supplierreturn.domain.form.SpdSupplierReturnForm;
 import net.lab1024.sa.admin.module.spd.supplierreturn.domain.vo.SpdSupplierReturnVO;
+import net.lab1024.sa.base.common.domain.PageParam;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.util.SmartPageUtil;
@@ -31,10 +32,11 @@ public class SpdSupplierReturnService {
     /**
      * 分页查询退供应商单列表
      */
+    @SuppressWarnings("unchecked")
     public ResponseDTO<PageResult<SpdSupplierReturnVO>> queryPage(Object form) {
-        Page<SpdSupplierReturnVO> page = SmartPageUtil.convert2PageQuery(form);
-        Page<SpdSupplierReturnVO> pageResult = spdSupplierReturnDao.queryPage(page, form);
-        PageResult<SpdSupplierReturnVO> result = SmartPageUtil.convert2PageResult(pageResult);
+        Page page = SmartPageUtil.convert2PageQuery((PageParam) form);
+        List<SpdSupplierReturnVO> list = spdSupplierReturnDao.queryPage(page, form).getRecords();
+        PageResult<SpdSupplierReturnVO> result = SmartPageUtil.convert2PageResult(page, list);
         return ResponseDTO.ok(result);
     }
 

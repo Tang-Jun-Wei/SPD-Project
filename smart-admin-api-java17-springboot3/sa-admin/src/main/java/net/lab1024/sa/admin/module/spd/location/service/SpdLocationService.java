@@ -7,6 +7,7 @@ import net.lab1024.sa.admin.module.spd.location.dao.SpdLocationDao;
 import net.lab1024.sa.admin.module.spd.location.domain.entity.SpdLocationEntity;
 import net.lab1024.sa.admin.module.spd.location.domain.form.SpdLocationForm;
 import net.lab1024.sa.admin.module.spd.location.domain.vo.SpdLocationVO;
+import net.lab1024.sa.base.common.domain.PageParam;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.util.SmartBeanUtil;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -25,10 +27,11 @@ public class SpdLocationService {
     @Resource
     private SpdLocationDao spdLocationDao;
 
+    @SuppressWarnings("unchecked")
     public ResponseDTO<PageResult<SpdLocationVO>> queryPage(Object form) {
-        Page<SpdLocationVO> page = SmartPageUtil.convert2PageQuery(form);
-        Page<SpdLocationVO> pageResult = spdLocationDao.queryPage(page, form);
-        PageResult<SpdLocationVO> result = SmartPageUtil.convert2PageResult(pageResult);
+        Page page = SmartPageUtil.convert2PageQuery((PageParam) form);
+        List<SpdLocationVO> list = spdLocationDao.queryPage(page, form).getRecords();
+        PageResult<SpdLocationVO> result = SmartPageUtil.convert2PageResult(page, list);
         return ResponseDTO.ok(result);
     }
 

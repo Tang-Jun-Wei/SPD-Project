@@ -32,22 +32,24 @@ public class SpdStockController {
 
     /**
      * 批号汇总查询（按批号聚合）
+     * TODO: 待实现 - 需要先实现SpdStockService.queryBatchSummary方法
      */
-    @Operation(summary = "批号汇总查询")
-    @PostMapping("/queryBatchSummary")
-    @SaCheckPermission("spd:stock:query")
-    public ResponseDTO<List<SpdStockVO>> queryBatchSummary(@RequestBody SpdStockQueryForm queryForm) {
-        return ResponseDTO.ok(spdStockService.queryBatchSummary(queryForm));
-    }
+    // @Operation(summary = "批号汇总查询")
+    // @PostMapping("/queryBatchSummary")
+    // @SaCheckPermission("spd:stock:query")
+    // public ResponseDTO<List<SpdStockVO>> queryBatchSummary(@RequestBody SpdStockQueryForm queryForm) {
+    //     return ResponseDTO.ok(spdStockService.queryBatchSummary(queryForm));
+    // }
 
     /**
      * 查询批号明细（根据批号ID查询详细）
+     * TODO: 待实现 - 需要先实现SpdStockService.queryBatchDetail方法
      */
-    @Operation(summary = "查询批号明细")
-    @GetMapping("/queryBatchDetail/{batchId}")
-    @SaCheckPermission("spd:stock:query")
-    public ResponseDTO<List<SpdStockVO>> queryBatchDetail(@PathVariable String batchId, 
-                                                           @RequestParam(required = false) String warehouseId) {
-        return ResponseDTO.ok(spdStockService.queryBatchDetail(batchId, warehouseId));
-    }
+    // @Operation(summary = "查询批号明细")
+    // @GetMapping("/queryBatchDetail/{batchId}")
+    // @SaCheckPermission("spd:stock:query")
+    // public ResponseDTO<List<SpdStockVO>> queryBatchDetail(@PathVariable String batchId, 
+    //                                                        @RequestParam(required = false) String warehouseId) {
+    //     return ResponseDTO.ok(spdStockService.queryBatchDetail(batchId, warehouseId));
+    // }
 }

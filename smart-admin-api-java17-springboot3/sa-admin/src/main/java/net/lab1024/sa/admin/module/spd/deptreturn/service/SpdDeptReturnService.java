@@ -9,6 +9,7 @@ import net.lab1024.sa.admin.module.spd.deptreturn.domain.entity.SpdDeptReturnDet
 import net.lab1024.sa.admin.module.spd.deptreturn.domain.entity.SpdDeptReturnEntity;
 import net.lab1024.sa.admin.module.spd.deptreturn.domain.form.SpdDeptReturnForm;
 import net.lab1024.sa.admin.module.spd.deptreturn.domain.vo.SpdDeptReturnVO;
+import net.lab1024.sa.base.common.domain.PageParam;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.util.SmartPageUtil;
@@ -31,10 +32,11 @@ public class SpdDeptReturnService {
     /**
      * 分页查询退库单列表
      */
+    @SuppressWarnings("unchecked")
     public ResponseDTO<PageResult<SpdDeptReturnVO>> queryPage(Object form) {
-        Page<SpdDeptReturnVO> page = SmartPageUtil.convert2PageQuery(form);
-        Page<SpdDeptReturnVO> pageResult = spdDeptReturnDao.queryPage(page, form);
-        PageResult<SpdDeptReturnVO> result = SmartPageUtil.convert2PageResult(pageResult);
+        Page page = SmartPageUtil.convert2PageQuery((PageParam) form);
+        List<SpdDeptReturnVO> list = spdDeptReturnDao.queryPage(page, form).getRecords();
+        PageResult<SpdDeptReturnVO> result = SmartPageUtil.convert2PageResult(page, list);
         return ResponseDTO.ok(result);
     }
 

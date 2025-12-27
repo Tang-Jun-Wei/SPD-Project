@@ -44,8 +44,8 @@ public class SpdDeptConsumeService {
      */
     public ResponseDTO<PageResult<SpdDeptConsumeVO>> queryPage(SpdDeptConsumeQueryForm queryForm) {
         Page<?> page = SmartPageUtil.convert2PageQuery(queryForm);
-        Page<SpdDeptConsumeVO> pageResult = spdDeptConsumeDao.queryPage(page, queryForm);
-        PageResult<SpdDeptConsumeVO> pageResultVO = SmartPageUtil.convert2PageResult(pageResult);
+        List<SpdDeptConsumeVO> list = spdDeptConsumeDao.queryPage(page, queryForm).getRecords();
+        PageResult<SpdDeptConsumeVO> pageResultVO = SmartPageUtil.convert2PageResult(page, list);
         return ResponseDTO.ok(pageResultVO);
     }
 

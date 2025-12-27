@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -26,8 +27,8 @@ public class SpdPackageUnpackService {
 
     public ResponseDTO<PageResult<SpdPackageUnpackVO>> queryPage(SpdPackageUnpackQueryForm queryForm) {
         Page<?> page = SmartPageUtil.convert2PageQuery(queryForm);
-        Page<SpdPackageUnpackVO> pageResult = spdPackageUnpackDao.queryPage(page, queryForm);
-        return ResponseDTO.ok(SmartPageUtil.convert2PageResult(pageResult));
+        List<SpdPackageUnpackVO> list = spdPackageUnpackDao.queryPage(page, queryForm).getRecords();
+        return ResponseDTO.ok(SmartPageUtil.convert2PageResult(page, list));
     }
 
     public ResponseDTO<SpdPackageUnpackVO> getDetail(Long unpackId) {
