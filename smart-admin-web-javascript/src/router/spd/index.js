@@ -139,6 +139,16 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
+      // 科室分类管理
+      {
+        path: 'dept-category',
+        name: 'SpdDeptCategory',
+        component: () => import('/@/views/spd/dept-category/dept-category-list.vue'),
+        meta: {
+          title: '科室分类管理',
+          hideInMenu: false,
+        },
+      },
       // 库存统计报表
       {
         path: 'inventory-report',
