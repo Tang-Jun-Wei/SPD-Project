@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.bulkpackage.dao.SpdBulkPackageDao">
+
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.bulkpackage.domain.vo.SpdBulkPackageVO">
+        SELECT
+            package_id,
+            package_no,
+            material_name,
+            specification,
+            batch_no,
+            expiry_date,
+            package_quantity,
+            unit_quantity,
+            total_quantity,
+            warehouse_name,
+            status,
+            create_user_name,
+            create_time
+        FROM spd_bulk_package
+        WHERE del_flag = 0
+        <if test="query.packageNo != null and query.packageNo != ''">
+            AND package_no LIKE CONCAT('%', #{query.packageNo}, '%')
+        </if>
+        <if test="query.materialName != null and query.materialName != ''">
+            AND material_name LIKE CONCAT('%', #{query.materialName}, '%')
+        </if>
+        <if test="query.batchNo != null and query.batchNo != ''">
+            AND batch_no LIKE CONCAT('%', #{query.batchNo}, '%')
+        </if>
+        <if test="query.status != null">
+            AND status = #{query.status}
+        </if>
+        <if test="query.startTime != null">
+            AND create_time &gt;= #{query.startTime}
+        </if>
+        <if test="query.endTime != null">
+            AND create_time &lt;= #{query.endTime}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

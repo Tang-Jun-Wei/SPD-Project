@@ -219,6 +219,16 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
+      // 散货打包管理
+      {
+        path: 'bulk-package',
+        name: 'SpdBulkPackage',
+        component: () => import('/@/views/spd/bulk-package/bulk-package-list.vue'),
+        meta: {
+          title: '散货打包管理',
+          hideInMenu: false,
+        },
+      },
       // 库存统计报表
       {
         path: 'inventory-report',

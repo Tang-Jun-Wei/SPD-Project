@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.bulkpackage.dao.SpdBulkPackageDetailDao">
+
+    <select id="selectByPackageId" resultType="net.lab1024.sa.admin.module.spd.bulkpackage.domain.vo.SpdBulkPackageDetailVO">
+        SELECT
+            detail_id,
+            label_code,
+            serial_no,
+            quantity,
+            status
+        FROM spd_bulk_package_detail
+        WHERE package_id = #{packageId}
+        AND del_flag = 0
+        ORDER BY create_time
+    </select>
+
+</mapper>
