@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.purchase.dao.SpdPurchaseDetailDao">
+    <select id="queryByPurchaseId" resultType="net.lab1024.sa.admin.module.spd.purchase.domain.vo.SpdPurchaseDetailVO">
+        SELECT * FROM t_spd_purchase_detail WHERE purchase_id = #{purchaseId} AND del_flag = #{delFlag} ORDER BY id ASC
+    </select>
+</mapper>

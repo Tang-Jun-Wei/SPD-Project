@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.purchase.dao.SpdPurchaseDao">
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.purchase.domain.vo.SpdPurchaseVO">
+        SELECT * FROM t_spd_purchase WHERE del_flag = #{delFlag}
+        <if test="query.purchaseNo != null and query.purchaseNo != ''">
+            AND purchase_no LIKE CONCAT('%', #{query.purchaseNo}, '%')
+        </if>
+        <if test="query.supplierId != null and query.supplierId != ''">
+            AND supplier_id = #{query.supplierId}
+        </if>
+        <if test="query.warehouseId != null and query.warehouseId != ''">
+            AND warehouse_id = #{query.warehouseId}
+        </if>
+        <if test="query.purchaseStatus != null">
+            AND purchase_status = #{query.purchaseStatus}
+        </if>
+        <if test="query.createTimeStart != null">
+            AND create_time &gt;= #{query.createTimeStart}
+        </if>
+        <if test="query.createTimeEnd != null">
+            AND create_time &lt;= #{query.createTimeEnd}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+    
+    <select id="getDetailById" resultType="net.lab1024.sa.admin.module.spd.purchase.domain.vo.SpdPurchaseVO">
+        SELECT * FROM t_spd_purchase WHERE id = #{id} AND del_flag = #{delFlag}
+    </select>
+</mapper>

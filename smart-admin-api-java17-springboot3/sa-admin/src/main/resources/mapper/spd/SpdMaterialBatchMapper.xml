@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.batch.dao.SpdMaterialBatchDao">
+    <resultMap id="SpdMaterialBatchVOMap" type="net.lab1024.sa.admin.module.spd.batch.domain.vo.SpdMaterialBatchVO">
+        <id column="id" property="id"/>
+        <result column="batch_id" property="batchId"/>
+        <result column="material_id" property="materialId"/>
+        <result column="material_name" property="materialName"/>
+        <result column="batch_no" property="batchNo"/>
+        <result column="valid_date" property="validDate"/>
+        <result column="supplier_id" property="supplierId"/>
+        <result column="supplier_name" property="supplierName"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="queryPage" resultMap="SpdMaterialBatchVOMap">
+        SELECT b.*, m.material_name
+        FROM spd_material_batch b
+        LEFT JOIN spd_material m ON b.material_id = m.material_id AND m.del_flag = 0
+        <where>
+            b.del_flag = 0
+            <if test="queryForm.materialId != null and queryForm.materialId != ''">
+                AND b.material_id = #{queryForm.materialId}
+            </if>
+            <if test="queryForm.batchNo != null and queryForm.batchNo != ''">
+                AND b.batch_no LIKE CONCAT('%', #{queryForm.batchNo}, '%')
+            </if>
+            <if test="queryForm.supplierId != null and queryForm.supplierId != ''">
+                AND b.supplier_id = #{queryForm.supplierId}
+            </if>
+        </where>
+        ORDER BY b.create_time DESC
+    </select>
+
+    <select id="getDetail" resultMap="SpdMaterialBatchVOMap">
+        SELECT b.*, m.material_name
+        FROM spd_material_batch b
+        LEFT JOIN spd_material m ON b.material_id = m.material_id AND m.del_flag = 0
+        WHERE b.id = #{id} AND b.del_flag = 0
+    </select>
+
+    <select id="queryByMaterialAndBatch" resultType="net.lab1024.sa.admin.module.spd.batch.domain.entity.SpdMaterialBatchEntity">
+        SELECT * FROM spd_material_batch
+        WHERE material_id = #{materialId} AND batch_no = #{batchNo} AND del_flag = 0
+        <if test="excludeId != null">AND id != #{excludeId}</if>
+        LIMIT 1
+    </select>
+</mapper>

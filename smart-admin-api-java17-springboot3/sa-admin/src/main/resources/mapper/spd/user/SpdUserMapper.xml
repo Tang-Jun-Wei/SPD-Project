@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.user.dao.SpdUserDao">
+
+    <!-- 
+        SPD用户管理 - MyBatis Mapper XML
+        
+        功能说明：
+        1. 实现自定义SQL查询方法
+        2. 支持复杂条件查询和多表关联
+        3. 使用动态SQL提高查询灵活性
+        
+        SQL说明：
+        - 所有查询默认过滤已删除数据（del_flag=0）
+        - 角色名称通过CASE WHEN转换
+        - 支持分页和排序
+    -->
+
+    <!-- 分页查询用户列表 -->
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.user.domain.vo.SpdUserVO">
+        SELECT 
+            id,
+            user_id,
+            user_name,
+            user_phone,
+            user_role,
+            CASE user_role
+                WHEN 1 THEN '普通用户'
+                WHEN 2 THEN '审核员'
+                WHEN 3 THEN '管理员'
+                ELSE '未知角色'
+            END AS user_role_name,
+            tenant_id,
+            del_flag,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        FROM spd_user
+        <where>
+            del_flag = #{queryForm.delFlag}
+            <if test="queryForm.userName != null and queryForm.userName != ''">
+                AND user_name LIKE CONCAT('%', #{queryForm.userName}, '%')
+            </if>
+            <if test="queryForm.userPhone != null and queryForm.userPhone != ''">
+                AND user_phone = #{queryForm.userPhone}
+            </if>
+            <if test="queryForm.userRole != null">
+                AND user_role = #{queryForm.userRole}
+            </if>
+            <if test="queryForm.tenantId != null and queryForm.tenantId != ''">
+                AND tenant_id = #{queryForm.tenantId}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据ID查询用户详情 -->
+    <select id="getDetail" resultType="net.lab1024.sa.admin.module.spd.user.domain.vo.SpdUserVO">
+        SELECT 
+            id,
+            user_id,
+            user_name,
+            user_phone,
+            user_role,
+            CASE user_role
+                WHEN 1 THEN '普通用户'
+                WHEN 2 THEN '审核员'
+                WHEN 3 THEN '管理员'
+                ELSE '未知角色'
+            END AS user_role_name,
+            tenant_id,
+            del_flag,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        FROM spd_user
+        WHERE id = #{userId}
+          AND del_flag = #{delFlag}
+    </select>
+
+    <!-- 根据手机号查询用户（唯一性校验） -->
+    <select id="queryByPhone" resultType="net.lab1024.sa.admin.module.spd.user.domain.entity.SpdUserEntity">
+        SELECT *
+        FROM spd_user
+        WHERE user_phone = #{userPhone}
+          AND del_flag = #{delFlag}
+        <if test="excludeUserId != null">
+            AND id != #{excludeUserId}
+        </if>
+    </select>
+
+    <!-- 逻辑删除用户 -->
+    <update id="deleteUser">
+        UPDATE spd_user
+        SET del_flag = #{delFlag},
+            update_by = #{updateBy},
+            update_time = NOW()
+        WHERE id = #{userId}
+    </update>
+
+</mapper>

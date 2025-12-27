@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.inventory.dao.SpdInventoryDao">
+    <resultMap id="SpdInventoryVOMap" type="net.lab1024.sa.admin.module.spd.inventory.domain.vo.SpdInventoryVO">
+        <id column="id" property="id"/>
+        <result column="inventory_id" property="inventoryId"/>
+        <result column="warehouse_id" property="warehouseId"/>
+        <result column="warehouse_name" property="warehouseName"/>
+        <result column="material_id" property="materialId"/>
+        <result column="material_name" property="materialName"/>
+        <result column="batch_id" property="batchId"/>
+        <result column="batch_no" property="batchNo"/>
+        <result column="stock_num" property="stockNum"/>
+        <result column="frozen_num" property="frozenNum"/>
+        <result column="available_num" property="availableNum"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="queryPage" resultMap="SpdInventoryVOMap">
+        SELECT i.*, 
+               w.node_name as warehouse_name,
+               m.material_name,
+               b.batch_no
+        FROM spd_inventory i
+        LEFT JOIN spd_org_node w ON i.warehouse_id = w.node_id AND w.del_flag = 0
+        LEFT JOIN spd_material m ON i.material_id = m.material_id AND m.del_flag = 0
+        LEFT JOIN spd_material_batch b ON i.batch_id = b.batch_id AND b.del_flag = 0
+        <where>
+            i.del_flag = 0
+            <if test="queryForm.warehouseId != null and queryForm.warehouseId != ''">
+                AND i.warehouse_id = #{queryForm.warehouseId}
+            </if>
+            <if test="queryForm.materialId != null and queryForm.materialId != ''">
+                AND i.material_id = #{queryForm.materialId}
+            </if>
+            <if test="queryForm.batchId != null and queryForm.batchId != ''">
+                AND i.batch_id = #{queryForm.batchId}
+            </if>
+        </where>
+        ORDER BY i.update_time DESC
+    </select>
+
+    <select id="getDetail" resultMap="SpdInventoryVOMap">
+        SELECT i.*, 
+               w.node_name as warehouse_name,
+               m.material_name,
+               b.batch_no
+        FROM spd_inventory i
+        LEFT JOIN spd_org_node w ON i.warehouse_id = w.node_id AND w.del_flag = 0
+        LEFT JOIN spd_material m ON i.material_id = m.material_id AND m.del_flag = 0
+        LEFT JOIN spd_material_batch b ON i.batch_id = b.batch_id AND b.del_flag = 0
+        WHERE i.id = #{id} AND i.del_flag = 0
+    </select>
+</mapper>

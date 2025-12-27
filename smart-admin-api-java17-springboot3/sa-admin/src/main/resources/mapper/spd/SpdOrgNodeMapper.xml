@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.orgnode.dao.SpdOrgNodeDao">
+
+    <!-- 结果映射：SpdOrgNodeVO -->
+    <resultMap id="SpdOrgNodeVOMap" type="net.lab1024.sa.admin.module.spd.orgnode.domain.vo.SpdOrgNodeVO">
+        <id column="id" property="id"/>
+        <result column="node_id" property="nodeId"/>
+        <result column="node_name" property="nodeName"/>
+        <result column="node_type" property="nodeType"/>
+        <result column="node_type_name" property="nodeTypeName"/>
+        <result column="parent_node_id" property="parentNodeId"/>
+        <result column="parent_node_name" property="parentNodeName"/>
+        <result column="warehouse_type" property="warehouseType"/>
+        <result column="warehouse_type_name" property="warehouseTypeName"/>
+        <result column="warehouse_status" property="warehouseStatus"/>
+        <result column="warehouse_status_name" property="warehouseStatusName"/>
+        <result column="dept_status" property="deptStatus"/>
+        <result column="dept_status_name" property="deptStatusName"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="del_flag" property="delFlag"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询SQL片段：基础字段+名称转换 -->
+    <sql id="Base_Column_List_With_Names">
+        n.id,
+        n.node_id,
+        n.node_name,
+        n.node_type,
+        CASE n.node_type
+            WHEN 1 THEN '科室'
+            WHEN 2 THEN '仓库'
+            ELSE '未知'
+        END AS node_type_name,
+        n.parent_node_id,
+        pn.node_name AS parent_node_name,
+        n.warehouse_type,
+        CASE n.warehouse_type
+            WHEN 1 THEN '中心库'
+            WHEN 2 THEN '科室库'
+            WHEN 3 THEN '临时库'
+            ELSE NULL
+        END AS warehouse_type_name,
+        n.warehouse_status,
+        CASE n.warehouse_status
+            WHEN 1 THEN '启用'
+            WHEN 0 THEN '禁用'
+            ELSE NULL
+        END AS warehouse_status_name,
+        n.dept_status,
+        CASE n.dept_status
+            WHEN 1 THEN '启用'
+            WHEN 0 THEN '禁用'
+            ELSE NULL
+        END AS dept_status_name,
+        n.tenant_id,
+        n.del_flag,
+        n.create_by,
+        n.create_time,
+        n.update_by,
+        n.update_time
+    </sql>
+
+    <!-- 分页查询组织节点列表 -->
+    <select id="queryPage" resultMap="SpdOrgNodeVOMap">
+        SELECT
+        <include refid="Base_Column_List_With_Names"/>
+        FROM spd_org_node n
+        LEFT JOIN spd_org_node pn ON n.parent_node_id = pn.node_id AND pn.del_flag = 0
+        <where>
+            n.del_flag = 0
+            <if test="queryForm.nodeName != null and queryForm.nodeName != ''">
+                AND n.node_name LIKE CONCAT('%', #{queryForm.nodeName}, '%')
+            </if>
+            <if test="queryForm.nodeType != null">
+                AND n.node_type = #{queryForm.nodeType}
+            </if>
+            <if test="queryForm.parentNodeId != null and queryForm.parentNodeId != ''">
+                AND n.parent_node_id = #{queryForm.parentNodeId}
+            </if>
+            <if test="queryForm.tenantId != null and queryForm.tenantId != ''">
+                AND n.tenant_id = #{queryForm.tenantId}
+            </if>
+        </where>
+        ORDER BY n.create_time DESC
+    </select>
+
+    <!-- 根据ID查询组织节点详情 -->
+    <select id="getDetail" resultMap="SpdOrgNodeVOMap">
+        SELECT
+        <include refid="Base_Column_List_With_Names"/>
+        FROM spd_org_node n
+        LEFT JOIN spd_org_node pn ON n.parent_node_id = pn.node_id AND pn.del_flag = 0
+        WHERE n.id = #{nodeId}
+        AND n.del_flag = #{delFlag}
+    </select>
+
+    <!-- 根据节点名称和类型查询节点（用于唯一性校验） -->
+    <select id="queryByNameAndType" resultType="net.lab1024.sa.admin.module.spd.orgnode.domain.entity.SpdOrgNodeEntity">
+        SELECT *
+        FROM spd_org_node
+        WHERE node_name = #{nodeName}
+        AND node_type = #{nodeType}
+        AND del_flag = #{delFlag}
+        <if test="excludeNodeId != null">
+            AND id != #{excludeNodeId}
+        </if>
+        LIMIT 1
+    </select>
+
+    <!-- 查询所有科室节点（用于下拉选择） -->
+    <select id="queryDeptList" resultMap="SpdOrgNodeVOMap">
+        SELECT
+        <include refid="Base_Column_List_With_Names"/>
+        FROM spd_org_node n
+        LEFT JOIN spd_org_node pn ON n.parent_node_id = pn.node_id AND pn.del_flag = 0
+        WHERE n.node_type = 1
+        AND n.dept_status = 1
+        AND n.del_flag = #{delFlag}
+        AND n.tenant_id = #{tenantId}
+        ORDER BY n.node_name ASC
+    </select>
+
+    <!-- 查询所有仓库节点（用于下拉选择） -->
+    <select id="queryWarehouseList" resultMap="SpdOrgNodeVOMap">
+        SELECT
+        <include refid="Base_Column_List_With_Names"/>
+        FROM spd_org_node n
+        LEFT JOIN spd_org_node pn ON n.parent_node_id = pn.node_id AND pn.del_flag = 0
+        WHERE n.node_type = 2
+        AND n.warehouse_status = 1
+        AND n.del_flag = #{delFlag}
+        AND n.tenant_id = #{tenantId}
+        ORDER BY n.node_name ASC
+    </select>
+
+    <!-- 逻辑删除组织节点 -->
+    <update id="deleteNode">
+        UPDATE spd_org_node
+        SET del_flag = #{delFlag},
+            update_by = #{updateBy},
+            update_time = NOW()
+        WHERE id = #{nodeId}
+    </update>
+
+    <!-- 更新仓库状态 -->
+    <update id="updateWarehouseStatus">
+        UPDATE spd_org_node
+        SET warehouse_status = #{warehouseStatus},
+            update_by = #{updateBy},
+            update_time = NOW()
+        WHERE id = #{nodeId}
+        AND node_type = 2
+    </update>
+
+    <!-- 更新科室状态 -->
+    <update id="updateDeptStatus">
+        UPDATE spd_org_node
+        SET dept_status = #{deptStatus},
+            update_by = #{updateBy},
+            update_time = NOW()
+        WHERE id = #{nodeId}
+        AND node_type = 1
+    </update>
+
+</mapper>
