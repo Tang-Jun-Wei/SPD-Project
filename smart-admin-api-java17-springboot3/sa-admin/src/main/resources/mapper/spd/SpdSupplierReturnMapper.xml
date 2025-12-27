@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.supplierreturn.dao.SpdSupplierReturnDao">
+
+    <!-- 分页查询退供应商单列表 -->
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.supplierreturn.domain.vo.SpdSupplierReturnVO">
+        SELECT 
+            sr.id,
+            sr.supplier_return_id AS supplierReturnId,
+            sr.supplier_return_code AS supplierReturnCode,
+            sr.warehouse_node_id AS warehouseNodeId,
+            wn.node_name AS warehouseNodeName,
+            sr.supplier_id AS supplierId,
+            s.supplier_name AS supplierName,
+            sr.return_status AS returnStatus,
+            sr.return_type AS returnType,
+            sr.apply_user_id AS applyUserId,
+            sr.apply_time AS applyTime,
+            sr.audit_user_id AS auditUserId,
+            sr.audit_time AS auditTime,
+            sr.audit_opinion AS auditOpinion,
+            sr.remark,
+            sr.create_time AS createTime
+        FROM spd_supplier_return sr
+        LEFT JOIN spd_org_node wn ON sr.warehouse_node_id = wn.node_id AND wn.del_flag = 0
+        LEFT JOIN spd_supplier s ON sr.supplier_id = s.supplier_id AND s.del_flag = 0
+        WHERE sr.del_flag = 0
+        <if test="form.returnStatus != null">
+            AND sr.return_status = #{form.returnStatus}
+        </if>
+        <if test="form.returnType != null">
+            AND sr.return_type = #{form.returnType}
+        </if>
+        <if test="form.supplierId != null and form.supplierId != ''">
+            AND sr.supplier_id = #{form.supplierId}
+        </if>
+        <if test="form.supplierReturnCode != null and form.supplierReturnCode != ''">
+            AND sr.supplier_return_code LIKE CONCAT('%', #{form.supplierReturnCode}, '%')
+        </if>
+        ORDER BY sr.create_time DESC
+    </select>
+
+    <!-- 查询退供应商单详情 -->
+    <select id="getDetail" resultType="net.lab1024.sa.admin.module.spd.supplierreturn.domain.vo.SpdSupplierReturnVO">
+        SELECT 
+            sr.id,
+            sr.supplier_return_id AS supplierReturnId,
+            sr.supplier_return_code AS supplierReturnCode,
+            sr.warehouse_node_id AS warehouseNodeId,
+            wn.node_name AS warehouseNodeName,
+            sr.supplier_id AS supplierId,
+            s.supplier_name AS supplierName,
+            sr.return_status AS returnStatus,
+            sr.return_type AS returnType,
+            sr.apply_user_id AS applyUserId,
+            sr.apply_time AS applyTime,
+            sr.audit_user_id AS auditUserId,
+            sr.audit_time AS auditTime,
+            sr.audit_opinion AS auditOpinion,
+            sr.remark,
+            sr.create_time AS createTime
+        FROM spd_supplier_return sr
+        LEFT JOIN spd_org_node wn ON sr.warehouse_node_id = wn.node_id AND wn.del_flag = 0
+        LEFT JOIN spd_supplier s ON sr.supplier_id = s.supplier_id AND s.del_flag = 0
+        WHERE sr.del_flag = 0
+          AND sr.supplier_return_id = #{supplierReturnId}
+    </select>
+
+</mapper>
