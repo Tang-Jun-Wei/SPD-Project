@@ -78,6 +78,56 @@ public class SpdPurchaseService {
     }
 
     @Transactional(rollbackFor = Exception.class)
+    public ResponseDTO<String> update(SpdPurchaseForm form, String loginUserId) {
+        SpdPurchaseEntity entity = spdPurchaseDao.selectById(form.getId());
+        if (entity == null || entity.getDelFlag() == 1) return ResponseDTO.userErrorParam("采购单不存在");
+        if (entity.getPurchaseStatus() != 1) return ResponseDTO.userErrorParam("只能修改待审核状态的采购单");
+
+        BigDecimal totalAmount = form.getDetailList().stream()
+            .map(d -> d.getQuantity().multiply(d.getUnitPrice()))
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        SmartBeanUtil.copyProperties(form, entity);
+        entity.setTotalAmount(totalAmount);
+        entity.setUpdateBy(loginUserId);
+        entity.setUpdateTime(LocalDateTime.now());
+        spdPurchaseDao.updateById(entity);
+
+        spdPurchaseDetailDao.delete(
+            new LambdaQueryWrapper<SpdPurchaseDetailEntity>()
+                .eq(SpdPurchaseDetailEntity::getPurchaseId, entity.getPurchaseId())
+        );
+
+        form.getDetailList().forEach(detail -> {
+            SpdPurchaseDetailEntity detailEntity = SmartBeanUtil.copy(detail, SpdPurchaseDetailEntity.class);
+            detailEntity.setPurchaseId(entity.getPurchaseId());
+            detailEntity.setTotalPrice(detail.getQuantity().multiply(detail.getUnitPrice()));
+            detailEntity.setDelFlag(0);
+            detailEntity.setCreateBy(loginUserId);
+            detailEntity.setCreateTime(LocalDateTime.now());
+            spdPurchaseDetailDao.insert(detailEntity);
+        });
+
+        log.info("更新采购单成功，purchaseId={}", entity.getPurchaseId());
+        return ResponseDTO.ok("更新成功");
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseDTO<String> approve(Long id, Integer approveStatus, String approveRemark, String loginUserId) {
+        SpdPurchaseEntity entity = spdPurchaseDao.selectById(id);
+        if (entity == null || entity.getDelFlag() == 1) return ResponseDTO.userErrorParam("采购单不存在");
+        if (entity.getPurchaseStatus() != 1) return ResponseDTO.userErrorParam("该采购单不是待审核状态");
+
+        entity.setPurchaseStatus(approveStatus);
+        entity.setUpdateBy(loginUserId);
+        entity.setUpdateTime(LocalDateTime.now());
+        spdPurchaseDao.updateById(entity);
+
+        log.info("审核采购单成功，purchaseId={}，审核结果={}", entity.getPurchaseId(), approveStatus);
+        return ResponseDTO.ok("审核成功");
+    }
+
+    @Transactional(rollbackFor = Exception.class)
     public ResponseDTO<String> delete(Long id, String loginUserId) {
         SpdPurchaseEntity entity = spdPurchaseDao.selectById(id);
         if (entity == null || entity.getDelFlag() == 1) return ResponseDTO.userErrorParam("采购单不存在");

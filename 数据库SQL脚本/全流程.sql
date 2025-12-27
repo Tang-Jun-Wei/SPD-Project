@@ -1,16 +1,37 @@
 /*
- * SPD院内耗材管理系统全表创建脚本（Smart-Admin框架适配最终版）
- * 整合所有业务需求：
- * 1. 耗材表：集采/UDI/注册证/高值/精细化状态/型号等字段；
- * 2. 库存逻辑：仅标签表（定数包）+散货表（散货），无独立库存表，标签可用状态合并两者判定；
- * 3. 操作轨迹：主表记录新增/审核人员、时间；
- * 4. 框架适配：雪花主键/逻辑删除/多租户/MyBatis-Plus代码生成适配；
- * 5. 全表补充业务按钮SQL（对应Smart-Admin接口规范）；
- * 适用：MySQL 8.0+ | 编码：UTF8MB4 | 引擎：InnoDB
+ * SPD院内耗材管理系统一键部署脚本（Smart-Admin框架适配）
+ * ==========================================
+ * 功能整合：
+ * 1. 数据表创建：16张核心业务表（用户/组织/耗材/批号/申领/采购/收货/检验/配货/标签/散货）
+ * 2. 字符集优化：统一utf8mb4_unicode_ci，解决中文注释乱码问题
+ * 3. 数据库视图：6个查询视图，自动关联表并展示名称（v_spd_apply/label/bulk/purchase/receive/inventory_summary）
+ * 4. 业务按钮SQL：每张表提供Smart-Admin规范的增删改查示例SQL
+ * ==========================================
+ * 技术特性：
+ * - 耗材表：集采/UDI/注册证/高值/精细化状态/型号等字段
+ * - 库存逻辑：标签表（定数包）+散货表（散货），无独立库存表
+ * - 操作轨迹：主表记录新增/审核人员、时间
+ * - 框架适配：雪花主键/逻辑删除/多租户/MyBatis-Plus代码生成适配
+ * ==========================================
+ * 适用环境：MySQL 8.0+ | 编码：UTF8MB4 | 引擎：InnoDB
  * 创建时间：2025-12-27
+ * 最后更新：2025-12-27（合并视图+字符集优化）
  */
+
+USE smart_admin_v3;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ==========================================
+-- 字符集优化配置（解决中文注释乱码）
+-- ==========================================
+-- 1. 查看当前字符集配置
+-- SHOW VARIABLES LIKE 'character%';
+-- SHOW VARIABLES LIKE 'collation%';
+
+-- 2. 设置数据库默认字符集
+ALTER DATABASE smart_admin_v3 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- 1. 系统用户表（Smart-Admin基础）
@@ -474,5 +495,210 @@ CREATE TABLE IF NOT EXISTS spd_bulk_material (
 -- UPDATE spd_bulk_material 
 -- SET used_num = used_num + 50, remaining_num = total_num - (used_num + 50), update_by='USER202512270001' 
 -- WHERE bulk_id='BULK202512270001' AND del_flag=0;
+
+-- ==========================================
+-- 已存在表字符集转换（解决已创建表的乱码问题）
+-- 说明：如果表已经存在，执行以下语句转换字符集
+-- ==========================================
+
+-- SPD业务表字符集转换
+ALTER TABLE spd_user CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_org_node CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_material CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_material_batch CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_apply_main CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_apply_detail CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_purchase_main CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_purchase_detail CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_check_main CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_check_detail CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_receive_main CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_receive_detail CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_package_main CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_package_detail CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_label CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE spd_bulk_material CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- 验证字符集转换结果
+-- SELECT TABLE_NAME, TABLE_COLLATION, TABLE_COMMENT 
+-- FROM information_schema.TABLES 
+-- WHERE TABLE_SCHEMA = 'smart_admin_v3' AND TABLE_NAME LIKE 'spd_%' 
+-- ORDER BY TABLE_NAME;
+
+-- ==========================================
+-- 数据库视图创建（优化查询性能）
+-- 说明：用于简化前端查询，自动关联表并展示名称
+-- ==========================================
+
+-- 1. 申领单视图
+CREATE OR REPLACE VIEW v_spd_apply AS
+SELECT 
+    a.id,
+    a.apply_id,
+    a.apply_code,
+    a.dept_id,
+    d.node_name AS dept_name,
+    a.warehouse_id,
+    w.node_name AS warehouse_name,
+    a.apply_status,
+    a.create_user,
+    a.create_time AS apply_time,
+    a.audit_user,
+    a.audit_time,
+    a.remark,
+    a.tenant_id,
+    a.del_flag
+FROM spd_apply_main a
+LEFT JOIN spd_org_node d ON a.dept_id = d.node_id AND d.node_type = 1
+LEFT JOIN spd_org_node w ON a.warehouse_id = w.node_id AND w.node_type = 2;
+
+-- 2. 标签管理视图
+CREATE OR REPLACE VIEW v_spd_label AS
+SELECT 
+    l.id,
+    l.label_code,
+    l.material_id,
+    m.material_name,
+    m.spec AS specification,
+    m.unit,
+    l.batch_id,
+    b.batch_no,
+    b.valid_date,
+    l.package_spec,
+    l.package_num AS quantity,
+    l.warehouse_id,
+    w.node_name AS warehouse_name,
+    l.label_status,
+    l.create_time,
+    l.use_time,
+    l.tenant_id,
+    l.del_flag
+FROM spd_label l
+LEFT JOIN spd_material m ON l.material_id = m.material_id
+LEFT JOIN spd_material_batch b ON l.batch_id = b.batch_id
+LEFT JOIN spd_org_node w ON l.warehouse_id = w.node_id;
+
+-- 3. 散货管理视图
+CREATE OR REPLACE VIEW v_spd_bulk_material AS
+SELECT 
+    bm.id,
+    bm.bulk_id,
+    bm.material_id,
+    m.material_name,
+    m.spec AS specification,
+    m.unit,
+    bm.batch_id,
+    b.batch_no,
+    b.valid_date,
+    bm.total_num,
+    bm.used_num,
+    bm.remaining_num,
+    bm.warehouse_id,
+    w.node_name AS warehouse_name,
+    bm.create_time,
+    bm.tenant_id,
+    bm.del_flag
+FROM spd_bulk_material bm
+LEFT JOIN spd_material m ON bm.material_id = m.material_id
+LEFT JOIN spd_material_batch b ON bm.batch_id = b.batch_id
+LEFT JOIN spd_org_node w ON bm.warehouse_id = w.node_id;
+
+-- 4. 采购单视图
+CREATE OR REPLACE VIEW v_spd_purchase AS
+SELECT 
+    p.id,
+    p.purchase_id,
+    p.purchase_code,
+    p.supplier_id,
+    p.supplier_name,
+    p.warehouse_id,
+    w.node_name AS warehouse_name,
+    p.source_type,
+    p.source_code,
+    p.purchase_status,
+    p.create_user,
+    p.create_time,
+    p.audit_user,
+    p.audit_time,
+    p.remark,
+    p.tenant_id,
+    p.del_flag
+FROM spd_purchase_main p
+LEFT JOIN spd_org_node w ON p.warehouse_id = w.node_id;
+
+-- 5. 收货单视图
+CREATE OR REPLACE VIEW v_spd_receive AS
+SELECT 
+    r.id,
+    r.receive_id,
+    r.receive_code,
+    r.check_code,
+    r.purchase_code,
+    r.warehouse_id,
+    w.node_name AS warehouse_name,
+    r.receive_type,
+    r.receive_status,
+    r.create_user,
+    r.create_time,
+    r.shelf_user,
+    r.shelf_time,
+    r.tenant_id,
+    r.del_flag
+FROM spd_receive_main r
+LEFT JOIN spd_org_node w ON r.warehouse_id = w.node_id;
+
+-- 6. 库存统计视图（合并定数包和散货）
+CREATE OR REPLACE VIEW v_spd_inventory_summary AS
+SELECT 
+    'label' AS inventory_type,
+    l.label_code AS inventory_id,
+    l.material_id,
+    m.material_name,
+    m.spec AS specification,
+    m.unit,
+    l.batch_id,
+    b.batch_no,
+    l.package_num AS quantity,
+    0 AS used_num,
+    l.package_num AS remaining_num,
+    l.warehouse_id,
+    w.node_name AS warehouse_name,
+    b.valid_date,
+    DATEDIFF(b.valid_date, NOW()) AS days_to_expiry,
+    l.label_status AS status,
+    l.create_time,
+    l.tenant_id
+FROM spd_label l
+LEFT JOIN spd_material m ON l.material_id = m.material_id
+LEFT JOIN spd_material_batch b ON l.batch_id = b.batch_id
+LEFT JOIN spd_org_node w ON l.warehouse_id = w.node_id
+WHERE l.del_flag = 0 AND l.label_status = 1
+
+UNION ALL
+
+SELECT 
+    'bulk' AS inventory_type,
+    bm.bulk_id AS inventory_id,
+    bm.material_id,
+    m.material_name,
+    m.spec AS specification,
+    m.unit,
+    bm.batch_id,
+    b.batch_no,
+    bm.total_num AS quantity,
+    bm.used_num,
+    bm.remaining_num,
+    bm.warehouse_id,
+    w.node_name AS warehouse_name,
+    b.valid_date,
+    DATEDIFF(b.valid_date, NOW()) AS days_to_expiry,
+    1 AS status,
+    bm.create_time,
+    bm.tenant_id
+FROM spd_bulk_material bm
+LEFT JOIN spd_material m ON bm.material_id = m.material_id
+LEFT JOIN spd_material_batch b ON bm.batch_id = b.batch_id
+LEFT JOIN spd_org_node w ON bm.warehouse_id = w.node_id
+WHERE bm.del_flag = 0 AND bm.remaining_num > 0;
 
 SET FOREIGN_KEY_CHECKS = 1;

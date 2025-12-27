@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.supplier.dao.SpdSupplierDao">
+
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.supplier.domain.vo.SpdSupplierVO">
+        SELECT 
+            id,
+            supplier_name AS supplierName,
+            contact_person AS contactPerson,
+            contact_phone AS contactPhone,
+            email,
+            address,
+            business_license AS businessLicense,
+            status,
+            remark,
+            create_time AS createTime,
+            update_time AS updateTime
+        FROM spd_supplier
+        WHERE del_flag = #{delFlag}
+        <if test="query.supplierName != null and query.supplierName != ''">
+            AND supplier_name LIKE CONCAT('%', #{query.supplierName}, '%')
+        </if>
+        <if test="query.contactPerson != null and query.contactPerson != ''">
+            AND contact_person LIKE CONCAT('%', #{query.contactPerson}, '%')
+        </if>
+        <if test="query.status != null">
+            AND status = #{query.status}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="getDetailById" resultType="net.lab1024.sa.admin.module.spd.supplier.domain.vo.SpdSupplierVO">
+        SELECT 
+            id,
+            supplier_name AS supplierName,
+            contact_person AS contactPerson,
+            contact_phone AS contactPhone,
+            email,
+            address,
+            business_license AS businessLicense,
+            status,
+            remark,
+            create_time AS createTime,
+            update_time AS updateTime
+        FROM spd_supplier
+        WHERE id = #{id} AND del_flag = #{delFlag}
+    </select>
+
+    <select id="queryAll" resultType="net.lab1024.sa.admin.module.spd.supplier.domain.vo.SpdSupplierVO">
+        SELECT 
+            id,
+            supplier_name AS supplierName,
+            contact_person AS contactPerson,
+            contact_phone AS contactPhone,
+            status
+        FROM spd_supplier
+        WHERE del_flag = #{delFlag} AND status = 1
+        ORDER BY supplier_name
+    </select>
+
+</mapper>

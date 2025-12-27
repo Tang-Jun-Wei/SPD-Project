@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.receive.dao.SpdReceiveDetailDao">
+
+    <select id="queryByReceiveCode" resultType="net.lab1024.sa.admin.module.spd.receive.domain.vo.SpdReceiveDetailVO">
+        SELECT 
+            d.*,
+            m.material_name,
+            m.spec as specification,
+            b.batch_no
+        FROM spd_receive_detail d
+        LEFT JOIN spd_material m ON d.material_id = m.material_id
+        LEFT JOIN spd_material_batch b ON d.batch_id = b.batch_id
+        WHERE d.receive_code = #{receiveCode} AND d.del_flag = #{delFlag}
+    </select>
+
+</mapper>

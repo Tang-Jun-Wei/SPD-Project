@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.spdpackage.dao.SpdPackageDao">
+    
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.spdpackage.domain.vo.SpdPackageVO">
+        SELECT 
+            p.id,
+            p.package_id AS packageId,
+            p.package_code AS packageCode,
+            p.warehouse_id AS warehouseId,
+            w.node_name AS warehouseName,
+            p.package_status AS packageStatus,
+            p.create_user AS createUser,
+            e.actual_name AS createUserName,
+            p.create_time AS createTime,
+            p.remark
+        FROM spd_package_main p
+        LEFT JOIN spd_org_node w ON p.warehouse_id = w.node_id AND w.del_flag = 0
+        LEFT JOIN t_employee e ON p.create_user = e.employee_id AND e.deleted = 0
+        WHERE p.del_flag = #{delFlag}
+        <if test="query.packageCode != null and query.packageCode != ''">
+            AND p.package_code LIKE CONCAT('%', #{query.packageCode}, '%')
+        </if>
+        <if test="query.warehouseId != null and query.warehouseId != ''">
+            AND p.warehouse_id = #{query.warehouseId}
+        </if>
+        <if test="query.packageStatus != null">
+            AND p.package_status = #{query.packageStatus}
+        </if>
+        ORDER BY p.create_time DESC
+    </select>
+
+    <select id="getDetail" resultType="net.lab1024.sa.admin.module.spd.spdpackage.domain.vo.SpdPackageVO">
+        SELECT 
+            p.id,
+            p.package_id AS packageId,
+            p.package_code AS packageCode,
+            p.warehouse_id AS warehouseId,
+            w.node_name AS warehouseName,
+            p.package_status AS packageStatus,
+            p.create_user AS createUser,
+            e.actual_name AS createUserName,
+            p.create_time AS createTime,
+            p.remark
+        FROM spd_package_main p
+        LEFT JOIN spd_org_node w ON p.warehouse_id = w.node_id AND w.del_flag = 0
+        LEFT JOIN t_employee e ON p.create_user = e.employee_id AND e.deleted = 0
+        WHERE p.package_id = #{packageId}
+        AND p.del_flag = #{delFlag}
+    </select>
+
+</mapper>

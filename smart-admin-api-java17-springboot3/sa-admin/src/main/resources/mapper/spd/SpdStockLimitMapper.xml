@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.stocklimit.dao.SpdStockLimitDao">
+
+    <sql id="baseColumns">
+        sl.id,
+        sl.limit_id AS limitId,
+        sl.material_id AS materialId,
+        sl.warehouse_id AS warehouseId,
+        sl.min_stock AS minStock,
+        sl.max_stock AS maxStock,
+        sl.warning_stock AS warningStock,
+        sl.remark,
+        sl.create_time AS createTime
+    </sql>
+
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.stocklimit.domain.vo.SpdStockLimitVO">
+        SELECT
+        <include refid="baseColumns"/>,
+        m.material_name AS materialName,
+        w.node_name AS warehouseName,
+        COALESCE(
+            (SELECT SUM(package_num) FROM spd_label WHERE material_id = sl.material_id AND warehouse_id = sl.warehouse_id AND del_flag = 0 AND label_status = 1),
+            0
+        ) +
+        COALESCE(
+            (SELECT SUM(remaining_num) FROM spd_bulk_material WHERE material_id = sl.material_id AND warehouse_id = sl.warehouse_id AND del_flag = 0),
+            0
+        ) AS currentStock,
+        CASE
+            WHEN COALESCE((SELECT SUM(package_num) FROM spd_label WHERE material_id = sl.material_id AND warehouse_id = sl.warehouse_id AND del_flag = 0 AND label_status = 1), 0) +
+                 COALESCE((SELECT SUM(remaining_num) FROM spd_bulk_material WHERE material_id = sl.material_id AND warehouse_id = sl.warehouse_id AND del_flag = 0), 0) &lt; sl.min_stock THEN 2
+            WHEN sl.warning_stock IS NOT NULL AND 
+                 COALESCE((SELECT SUM(package_num) FROM spd_label WHERE material_id = sl.material_id AND warehouse_id = sl.warehouse_id AND del_flag = 0 AND label_status = 1), 0) +
+                 COALESCE((SELECT SUM(remaining_num) FROM spd_bulk_material WHERE material_id = sl.material_id AND warehouse_id = sl.warehouse_id AND del_flag = 0), 0) &lt; sl.warning_stock THEN 1
+            WHEN COALESCE((SELECT SUM(package_num) FROM spd_label WHERE material_id = sl.material_id AND warehouse_id = sl.warehouse_id AND del_flag = 0 AND label_status = 1), 0) +
+                 COALESCE((SELECT SUM(remaining_num) FROM spd_bulk_material WHERE material_id = sl.material_id AND warehouse_id = sl.warehouse_id AND del_flag = 0), 0) &gt; sl.max_stock THEN 3
+            ELSE 0
+        END AS stockStatus
+        FROM spd_stock_limit sl
+        LEFT JOIN spd_material m ON sl.material_id = m.material_id
+        LEFT JOIN spd_org_node w ON sl.warehouse_id = w.node_id
+        WHERE sl.del_flag = #{delFlag}
+        <if test="query.materialName != null and query.materialName != ''">
+            AND m.material_name LIKE CONCAT('%', #{query.materialName}, '%')
+        </if>
+        <if test="query.warehouseId != null and query.warehouseId != ''">
+            AND sl.warehouse_id = #{query.warehouseId}
+        </if>
+        <if test="query.stockStatus != null">
+            HAVING stockStatus = #{query.stockStatus}
+        </if>
+        ORDER BY sl.create_time DESC
+    </select>
+
+    <select id="getDetailById" resultType="net.lab1024.sa.admin.module.spd.stocklimit.domain.vo.SpdStockLimitVO">
+        SELECT
+        <include refid="baseColumns"/>,
+        m.material_name AS materialName,
+        w.node_name AS warehouseName,
+        COALESCE(
+            (SELECT SUM(package_num) FROM spd_label WHERE material_id = sl.material_id AND warehouse_id = sl.warehouse_id AND del_flag = 0 AND label_status = 1),
+            0
+        ) +
+        COALESCE(
+            (SELECT SUM(remaining_num) FROM spd_bulk_material WHERE material_id = sl.material_id AND warehouse_id = sl.warehouse_id AND del_flag = 0),
+            0
+        ) AS currentStock
+        FROM spd_stock_limit sl
+        LEFT JOIN spd_material m ON sl.material_id = m.material_id
+        LEFT JOIN spd_org_node w ON sl.warehouse_id = w.node_id
+        WHERE sl.id = #{id}
+          AND sl.del_flag = 0
+    </select>
+
+</mapper>

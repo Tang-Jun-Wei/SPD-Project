@@ -7,7 +7,7 @@ import net.lab1024.sa.admin.module.spd.material.dao.SpdMaterialDao;
 import net.lab1024.sa.admin.module.spd.material.domain.form.SpdMaterialForm;
 import net.lab1024.sa.admin.module.spd.material.domain.form.SpdMaterialQueryForm;
 import net.lab1024.sa.admin.module.spd.material.domain.vo.SpdMaterialVO;
-import net.lab1024.sa.admin.module.spd.material.entity.SpdMaterialEntity;
+import net.lab1024.sa.admin.module.spd.material.domain.entity.SpdMaterialEntity;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.util.SmartBeanUtil;

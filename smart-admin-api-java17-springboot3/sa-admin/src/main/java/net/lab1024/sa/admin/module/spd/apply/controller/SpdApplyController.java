@@ -46,6 +46,26 @@ public class SpdApplyController {
         return spdApplyService.add(form, requestUser.getUserId().toString(), tenantId);
     }
 
+    @Operation(summary = "更新申领单")
+    @PostMapping("/update")
+    @SaCheckPermission("spd:apply:update")
+    public ResponseDTO<String> update(@RequestBody @Valid SpdApplyForm form) {
+        RequestUser requestUser = SmartRequestUtil.getRequestUser();
+        return spdApplyService.update(form, requestUser.getUserId().toString());
+    }
+
+    @Operation(summary = "审核申领单")
+    @PostMapping("/approve/{id}")
+    @SaCheckPermission("spd:apply:approve")
+    public ResponseDTO<String> approve(
+            @PathVariable Long id,
+            @RequestParam Integer approveStatus,
+            @RequestParam(required = false) String approveRemark) {
+        RequestUser requestUser = SmartRequestUtil.getRequestUser();
+        return spdApplyService.approve(id, approveStatus, approveRemark,
+                requestUser.getUserId().toString(), requestUser.getUserName());
+    }
+
     @Operation(summary = "删除申领单")
     @GetMapping("/delete/{id}")
     @SaCheckPermission("spd:apply:delete")

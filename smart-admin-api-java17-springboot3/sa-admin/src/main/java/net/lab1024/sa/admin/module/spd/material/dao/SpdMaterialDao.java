@@ -2,7 +2,7 @@ package net.lab1024.sa.admin.module.spd.material.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import net.lab1024.sa.admin.module.spd.material.entity.SpdMaterialEntity;
+import net.lab1024.sa.admin.module.spd.material.domain.entity.SpdMaterialEntity;
 import net.lab1024.sa.admin.module.spd.material.domain.form.SpdMaterialQueryForm;
 import net.lab1024.sa.admin.module.spd.material.domain.vo.SpdMaterialVO;
 import org.apache.ibatis.annotations.Mapper;

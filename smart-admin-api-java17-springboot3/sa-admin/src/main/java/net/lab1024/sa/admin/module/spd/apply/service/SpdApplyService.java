@@ -1,6 +1,7 @@
 package net.lab1024.sa.admin.module.spd.apply.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.admin.module.spd.apply.dao.SpdApplyDao;
@@ -76,6 +77,62 @@ public class SpdApplyService {
 
         log.info("新增申领单成功，applyId={}", applyId);
         return ResponseDTO.ok("新增成功");
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseDTO<String> update(SpdApplyForm form, String loginUserId) {
+        SpdApplyEntity entity = spdApplyDao.selectById(form.getId());
+        if (entity == null || entity.getDelFlag() == 1) {
+            return ResponseDTO.userErrorParam("申领单不存在");
+        }
+        if (entity.getApplyStatus() != 1) {
+            return ResponseDTO.userErrorParam("只能修改待审核状态的申领单");
+        }
+
+        SmartBeanUtil.copyProperties(form, entity);
+        entity.setUpdateBy(loginUserId);
+        entity.setUpdateTime(LocalDateTime.now());
+        spdApplyDao.updateById(entity);
+
+        spdApplyDetailDao.delete(
+            new LambdaQueryWrapper<SpdApplyDetailEntity>()
+                .eq(SpdApplyDetailEntity::getApplyId, entity.getApplyId())
+        );
+
+        form.getDetailList().forEach(detail -> {
+            SpdApplyDetailEntity detailEntity = SmartBeanUtil.copy(detail, SpdApplyDetailEntity.class);
+            detailEntity.setApplyId(entity.getApplyId());
+            detailEntity.setDelFlag(0);
+            detailEntity.setCreateBy(loginUserId);
+            detailEntity.setCreateTime(LocalDateTime.now());
+            spdApplyDetailDao.insert(detailEntity);
+        });
+
+        log.info("更新申领单成功，applyId={}", entity.getApplyId());
+        return ResponseDTO.ok("更新成功");
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseDTO<String> approve(Long id, Integer approveStatus, String approveRemark, String loginUserId, String userName) {
+        SpdApplyEntity entity = spdApplyDao.selectById(id);
+        if (entity == null || entity.getDelFlag() == 1) {
+            return ResponseDTO.userErrorParam("申领单不存在");
+        }
+        if (entity.getApplyStatus() != 1) {
+            return ResponseDTO.userErrorParam("该申领单不是待审核状态");
+        }
+
+        entity.setApplyStatus(approveStatus);
+        entity.setApproveUserId(loginUserId);
+        entity.setApproveUserName(userName);
+        entity.setApproveTime(LocalDateTime.now());
+        entity.setApproveRemark(approveRemark);
+        entity.setUpdateBy(loginUserId);
+        entity.setUpdateTime(LocalDateTime.now());
+        spdApplyDao.updateById(entity);
+
+        log.info("审核申领单成功，applyId={}，审核结果={}", entity.getApplyId(), approveStatus);
+        return ResponseDTO.ok("审核成功");
     }
 
     @Transactional(rollbackFor = Exception.class)

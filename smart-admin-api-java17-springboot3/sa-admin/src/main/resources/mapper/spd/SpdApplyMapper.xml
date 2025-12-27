@@ -3,29 +3,67 @@
 <mapper namespace="net.lab1024.sa.admin.module.spd.apply.dao.SpdApplyDao">
 
     <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.apply.domain.vo.SpdApplyVO">
-        SELECT * FROM t_spd_apply
-        WHERE del_flag = #{delFlag}
+        SELECT 
+            a.id,
+            a.apply_id AS applyId,
+            a.apply_no AS applyNo,
+            a.apply_dept_id AS applyDeptId,
+            d.department_name AS applyDeptName,
+            a.apply_user_id AS applyUserId,
+            e1.actual_name AS applyUserName,
+            a.apply_time AS applyTime,
+            a.apply_status AS applyStatus,
+            a.approve_user_id AS approveUserId,
+            e2.actual_name AS approveUserName,
+            a.approve_time AS approveTime,
+            a.approve_remark AS approveRemark,
+            a.create_time AS createTime,
+            a.remark
+        FROM t_spd_apply a
+        LEFT JOIN t_department d ON a.apply_dept_id = d.department_id
+        LEFT JOIN t_employee e1 ON a.apply_user_id = e1.employee_id
+        LEFT JOIN t_employee e2 ON a.approve_user_id = e2.employee_id
+        WHERE a.del_flag = #{delFlag}
         <if test="query.applyNo != null and query.applyNo != ''">
-            AND apply_no LIKE CONCAT('%', #{query.applyNo}, '%')
+            AND a.apply_no LIKE CONCAT('%', #{query.applyNo}, '%')
         </if>
         <if test="query.applyDeptId != null and query.applyDeptId != ''">
-            AND apply_dept_id = #{query.applyDeptId}
+            AND a.apply_dept_id = #{query.applyDeptId}
         </if>
         <if test="query.applyStatus != null">
-            AND apply_status = #{query.applyStatus}
+            AND a.apply_status = #{query.applyStatus}
         </if>
         <if test="query.applyTimeStart != null">
-            AND apply_time &gt;= #{query.applyTimeStart}
+            AND a.apply_time &gt;= #{query.applyTimeStart}
         </if>
         <if test="query.applyTimeEnd != null">
-            AND apply_time &lt;= #{query.applyTimeEnd}
+            AND a.apply_time &lt;= #{query.applyTimeEnd}
         </if>
-        ORDER BY create_time DESC
+        ORDER BY a.create_time DESC
     </select>
 
     <select id="getDetailById" resultType="net.lab1024.sa.admin.module.spd.apply.domain.vo.SpdApplyVO">
-        SELECT * FROM t_spd_apply
-        WHERE id = #{id} AND del_flag = #{delFlag}
+        SELECT 
+            a.id,
+            a.apply_id AS applyId,
+            a.apply_no AS applyNo,
+            a.apply_dept_id AS applyDeptId,
+            d.department_name AS applyDeptName,
+            a.apply_user_id AS applyUserId,
+            e1.actual_name AS applyUserName,
+            a.apply_time AS applyTime,
+            a.apply_status AS applyStatus,
+            a.approve_user_id AS approveUserId,
+            e2.actual_name AS approveUserName,
+            a.approve_time AS approveTime,
+            a.approve_remark AS approveRemark,
+            a.create_time AS createTime,
+            a.remark
+        FROM t_spd_apply a
+        LEFT JOIN t_department d ON a.apply_dept_id = d.department_id
+        LEFT JOIN t_employee e1 ON a.apply_user_id = e1.employee_id
+        LEFT JOIN t_employee e2 ON a.approve_user_id = e2.employee_id
+        WHERE a.id = #{id} AND a.del_flag = #{delFlag}
     </select>
 
 </mapper>

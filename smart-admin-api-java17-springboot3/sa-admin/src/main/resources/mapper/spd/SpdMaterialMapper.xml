@@ -3,7 +3,7 @@
 <mapper namespace="net.lab1024.sa.admin.module.spd.material.dao.SpdMaterialDao">
 
     <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.material.domain.vo.SpdMaterialVO">
-        SELECT * FROM t_spd_material
+        SELECT * FROM spd_material
         WHERE del_flag = #{delFlag}
         <if test="query.materialName != null and query.materialName != ''">
             AND material_name LIKE CONCAT('%', #{query.materialName}, '%')
@@ -29,8 +29,8 @@
         ORDER BY create_time DESC
     </select>
 
-    <select id="queryByNameAndManufacturer" resultType="net.lab1024.sa.admin.module.spd.material.entity.SpdMaterialEntity">
-        SELECT * FROM t_spd_material
+    <select id="queryByNameAndManufacturer" resultType="net.lab1024.sa.admin.module.spd.material.domain.entity.SpdMaterialEntity">
+        SELECT * FROM spd_material
         WHERE material_name = #{materialName}
         AND manufacturer = #{manufacturer}
         AND del_flag = #{delFlag}
@@ -40,8 +40,8 @@
         LIMIT 1
     </select>
 
-    <select id="queryByMaterialId" resultType="net.lab1024.sa.admin.module.spd.material.entity.SpdMaterialEntity">
-        SELECT * FROM t_spd_material
+    <select id="queryByMaterialId" resultType="net.lab1024.sa.admin.module.spd.material.domain.entity.SpdMaterialEntity">
+        SELECT * FROM spd_material
         WHERE material_id = #{materialId}
         AND del_flag = #{delFlag}
         LIMIT 1

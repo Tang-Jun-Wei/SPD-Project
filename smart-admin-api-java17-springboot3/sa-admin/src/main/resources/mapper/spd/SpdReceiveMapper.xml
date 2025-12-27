@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.receive.dao.SpdReceiveDao">
+
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.receive.domain.vo.SpdReceiveVO">
+        SELECT * FROM spd_receive_main
+        WHERE del_flag = #{delFlag}
+        <if test="query.receiveCode != null and query.receiveCode != ''">
+            AND receive_code LIKE CONCAT('%', #{query.receiveCode}, '%')
+        </if>
+        <if test="query.acceptanceCode != null and query.acceptanceCode != ''">
+            AND acceptance_code = #{query.acceptanceCode}
+        </if>
+        <if test="query.warehouseId != null and query.warehouseId != ''">
+            AND warehouse_id = #{query.warehouseId}
+        </if>
+        <if test="query.receiveStatus != null">
+            AND receive_status = #{query.receiveStatus}
+        </if>
+        <if test="query.createTimeStart != null">
+            AND create_time &gt;= #{query.createTimeStart}
+        </if>
+        <if test="query.createTimeEnd != null">
+            AND create_time &lt;= #{query.createTimeEnd}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="getDetailByCode" resultType="net.lab1024.sa.admin.module.spd.receive.domain.vo.SpdReceiveVO">
+        SELECT * FROM spd_receive_main
+        WHERE receive_code = #{receiveCode} AND del_flag = #{delFlag}
+    </select>
+
+</mapper>

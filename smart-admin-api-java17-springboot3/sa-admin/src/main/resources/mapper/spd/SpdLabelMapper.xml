@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.label.dao.SpdLabelDao">
+
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.label.domain.vo.SpdLabelVO">
+        SELECT 
+            l.*,
+            m.material_name,
+            m.spec as specification,
+            b.batch_no,
+            w.node_name as warehouse_name
+        FROM spd_label l
+        LEFT JOIN spd_material m ON l.material_id = m.material_id
+        LEFT JOIN spd_material_batch b ON l.batch_id = b.batch_id
+        LEFT JOIN spd_org_node w ON l.warehouse_id = w.node_id
+        WHERE l.del_flag = #{delFlag}
+        <if test="query.labelCode != null and query.labelCode != ''">
+            AND l.label_code LIKE CONCAT('%', #{query.labelCode}, '%')
+        </if>
+        <if test="query.materialId != null and query.materialId != ''">
+            AND l.material_id = #{query.materialId}
+        </if>
+        <if test="query.materialName != null and query.materialName != ''">
+            AND m.material_name LIKE CONCAT('%', #{query.materialName}, '%')
+        </if>
+        <if test="query.batchNo != null and query.batchNo != ''">
+            AND b.batch_no = #{query.batchNo}
+        </if>
+        <if test="query.warehouseId != null and query.warehouseId != ''">
+            AND l.warehouse_id = #{query.warehouseId}
+        </if>
+        <if test="query.labelStatus != null">
+            AND l.label_status = #{query.labelStatus}
+        </if>
+        ORDER BY l.create_time DESC
+    </select>
+
+    <select id="getDetailByCode" resultType="net.lab1024.sa.admin.module.spd.label.domain.vo.SpdLabelVO">
+        SELECT 
+            l.*,
+            m.material_name,
+            m.spec as specification,
+            b.batch_no,
+            w.node_name as warehouse_name
+        FROM spd_label l
+        LEFT JOIN spd_material m ON l.material_id = m.material_id
+        LEFT JOIN spd_material_batch b ON l.batch_id = b.batch_id
+        LEFT JOIN spd_org_node w ON l.warehouse_id = w.node_id
+        WHERE l.label_code = #{labelCode} AND l.del_flag = #{delFlag}
+    </select>
+
+</mapper>

@@ -44,6 +44,25 @@ public class SpdPurchaseController {
         return spdPurchaseService.add(form, requestUser.getUserId().toString(), "default");
     }
 
+    @Operation(summary = "更新采购单")
+    @PostMapping("/update")
+    @SaCheckPermission("spd:purchase:update")
+    public ResponseDTO<String> update(@RequestBody @Valid SpdPurchaseForm form) {
+        RequestUser requestUser = SmartRequestUtil.getRequestUser();
+        return spdPurchaseService.update(form, requestUser.getUserId().toString());
+    }
+
+    @Operation(summary = "审核采购单")
+    @PostMapping("/approve/{id}")
+    @SaCheckPermission("spd:purchase:approve")
+    public ResponseDTO<String> approve(
+            @PathVariable Long id,
+            @RequestParam Integer approveStatus,
+            @RequestParam(required = false) String approveRemark) {
+        RequestUser requestUser = SmartRequestUtil.getRequestUser();
+        return spdPurchaseService.approve(id, approveStatus, approveRemark, requestUser.getUserId().toString());
+    }
+
     @Operation(summary = "删除采购单")
     @GetMapping("/delete/{id}")
     @SaCheckPermission("spd:purchase:delete")

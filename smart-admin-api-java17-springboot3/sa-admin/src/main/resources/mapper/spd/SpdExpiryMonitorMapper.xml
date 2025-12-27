@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.expiry.dao.SpdExpiryMonitorDao">
+
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.spd.expiry.domain.vo.SpdExpiryMonitorVO">
+        SELECT * FROM (
+            -- 定数包效期监控
+            SELECT
+                l.label_id AS labelId,
+                NULL AS batchId,
+                1 AS stockType,
+                l.material_id AS materialId,
+                m.material_name AS materialName,
+                m.specification,
+                l.warehouse_id AS warehouseId,
+                w.node_name AS warehouseName,
+                b.batch_no AS batchNo,
+                b.production_date AS productionDate,
+                b.expiry_date AS expiryDate,
+                DATEDIFF(b.expiry_date, CURDATE()) AS remainingDays,
+                CASE
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt; 0 THEN 4
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 30 THEN 1
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 60 THEN 2
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 90 THEN 3
+                    ELSE 0
+                END AS warningLevel,
+                l.package_num AS stockQuantity,
+                s.supplier_name AS supplierName,
+                l.create_time AS createTime
+            FROM spd_label l
+            LEFT JOIN spd_material_batch b ON l.batch_id = b.batch_id
+            LEFT JOIN spd_material m ON l.material_id = m.material_id
+            LEFT JOIN spd_org_node w ON l.warehouse_id = w.node_id
+            LEFT JOIN spd_supplier s ON b.supplier_id = s.supplier_id
+            WHERE l.del_flag = 0
+              AND l.label_status = 1
+              AND b.expiry_date IS NOT NULL
+
+            UNION ALL
+
+            -- 散货效期监控
+            SELECT
+                NULL AS labelId,
+                bm.id AS batchId,
+                2 AS stockType,
+                bm.material_id AS materialId,
+                m.material_name AS materialName,
+                m.specification,
+                bm.warehouse_id AS warehouseId,
+                w.node_name AS warehouseName,
+                b.batch_no AS batchNo,
+                b.production_date AS productionDate,
+                b.expiry_date AS expiryDate,
+                DATEDIFF(b.expiry_date, CURDATE()) AS remainingDays,
+                CASE
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt; 0 THEN 4
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 30 THEN 1
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 60 THEN 2
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 90 THEN 3
+                    ELSE 0
+                END AS warningLevel,
+                bm.remaining_num AS stockQuantity,
+                s.supplier_name AS supplierName,
+                bm.create_time AS createTime
+            FROM spd_bulk_material bm
+            LEFT JOIN spd_material_batch b ON bm.batch_id = b.batch_id
+            LEFT JOIN spd_material m ON bm.material_id = m.material_id
+            LEFT JOIN spd_org_node w ON bm.warehouse_id = w.node_id
+            LEFT JOIN spd_supplier s ON b.supplier_id = s.supplier_id
+            WHERE bm.del_flag = 0
+              AND bm.remaining_num > 0
+              AND b.expiry_date IS NOT NULL
+        ) AS combined_data
+        WHERE 1=1
+        <if test="query.materialName != null and query.materialName != ''">
+            AND materialName LIKE CONCAT('%', #{query.materialName}, '%')
+        </if>
+        <if test="query.warehouseId != null and query.warehouseId != ''">
+            AND warehouseId = #{query.warehouseId}
+        </if>
+        <if test="query.stockType != null">
+            AND stockType = #{query.stockType}
+        </if>
+        <if test="query.warningLevel != null">
+            AND warningLevel = #{query.warningLevel}
+        </if>
+        <if test="query.batchNo != null and query.batchNo != ''">
+            AND batchNo LIKE CONCAT('%', #{query.batchNo}, '%')
+        </if>
+        ORDER BY warningLevel DESC, remainingDays ASC
+    </select>
+
+    <select id="queryExpiringSoon" resultType="net.lab1024.sa.admin.module.spd.expiry.domain.vo.SpdExpiryMonitorVO">
+        SELECT * FROM (
+            -- 定数包效期监控
+            SELECT
+                l.label_id AS labelId,
+                NULL AS batchId,
+                1 AS stockType,
+                l.material_id AS materialId,
+                m.material_name AS materialName,
+                m.specification,
+                l.warehouse_id AS warehouseId,
+                w.node_name AS warehouseName,
+                b.batch_no AS batchNo,
+                b.production_date AS productionDate,
+                b.expiry_date AS expiryDate,
+                DATEDIFF(b.expiry_date, CURDATE()) AS remainingDays,
+                CASE
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt; 0 THEN 4
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 30 THEN 1
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 60 THEN 2
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 90 THEN 3
+                    ELSE 0
+                END AS warningLevel,
+                l.package_num AS stockQuantity,
+                s.supplier_name AS supplierName,
+                l.create_time AS createTime
+            FROM spd_label l
+            LEFT JOIN spd_material_batch b ON l.batch_id = b.batch_id
+            LEFT JOIN spd_material m ON l.material_id = m.material_id
+            LEFT JOIN spd_org_node w ON l.warehouse_id = w.node_id
+            LEFT JOIN spd_supplier s ON b.supplier_id = s.supplier_id
+            WHERE l.del_flag = 0
+              AND l.label_status = 1
+              AND b.expiry_date IS NOT NULL
+              AND DATEDIFF(b.expiry_date, CURDATE()) &lt;= #{days}
+
+            UNION ALL
+
+            -- 散货效期监控
+            SELECT
+                NULL AS labelId,
+                bm.id AS batchId,
+                2 AS stockType,
+                bm.material_id AS materialId,
+                m.material_name AS materialName,
+                m.specification,
+                bm.warehouse_id AS warehouseId,
+                w.node_name AS warehouseName,
+                b.batch_no AS batchNo,
+                b.production_date AS productionDate,
+                b.expiry_date AS expiryDate,
+                DATEDIFF(b.expiry_date, CURDATE()) AS remainingDays,
+                CASE
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt; 0 THEN 4
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 30 THEN 1
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 60 THEN 2
+                    WHEN DATEDIFF(b.expiry_date, CURDATE()) &lt;= 90 THEN 3
+                    ELSE 0
+                END AS warningLevel,
+                bm.remaining_num AS stockQuantity,
+                s.supplier_name AS supplierName,
+                bm.create_time AS createTime
+            FROM spd_bulk_material bm
+            LEFT JOIN spd_material_batch b ON bm.batch_id = b.batch_id
+            LEFT JOIN spd_material m ON bm.material_id = m.material_id
+            LEFT JOIN spd_org_node w ON bm.warehouse_id = w.node_id
+            LEFT JOIN spd_supplier s ON b.supplier_id = s.supplier_id
+            WHERE bm.del_flag = 0
+              AND bm.remaining_num > 0
+              AND b.expiry_date IS NOT NULL
+              AND DATEDIFF(b.expiry_date, CURDATE()) &lt;= #{days}
+        ) AS combined_data
+        ORDER BY remainingDays ASC
+        LIMIT 100
+    </select>
+
+</mapper>
