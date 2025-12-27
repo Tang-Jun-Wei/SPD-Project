@@ -209,6 +209,16 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
+      // 标签追溯管理
+      {
+        path: 'label-track',
+        name: 'SpdLabelTrack',
+        component: () => import('/@/views/spd/label-track/label-track.vue'),
+        meta: {
+          title: '标签追溯管理',
+          hideInMenu: false,
+        },
+      },
       // 库存统计报表
       {
         path: 'inventory-report',

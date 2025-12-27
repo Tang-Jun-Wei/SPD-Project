@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.spd.labeltrack.dao.SpdLabelTrackDao">
+
+    <!-- 查询标签基本信息 -->
+    <select id="selectByLabelCode" resultType="net.lab1024.sa.admin.module.spd.labeltrack.domain.vo.SpdLabelTrackVO">
+        SELECT
+            l.label_id,
+            l.label_code,
+            l.material_code,
+            l.material_name,
+            l.specification,
+            l.batch_no,
+            l.serial_no,
+            l.manufacturer,
+            l.supplier_name,
+            l.create_time,
+            CASE l.status
+                WHEN 1 THEN '待打包'
+                WHEN 2 THEN '已打包'
+                WHEN 3 THEN '已出库'
+                WHEN 4 THEN '已分发'
+                WHEN 5 THEN '已消耗'
+                WHEN 6 THEN '已退库'
+                ELSE '未知'
+            END as current_status,
+            COALESCE(l.current_location, '中心仓库') as current_location
+        FROM spd_label l
+        WHERE l.label_code = #{labelCode}
+        AND l.del_flag = 0
+        LIMIT 1
+    </select>
+
+    <!-- 查询标签轨迹列表 -->
+    <select id="selectTrackList" resultType="net.lab1024.sa.admin.module.spd.labeltrack.domain.vo.SpdLabelTrackDetailVO">
+        SELECT * FROM (
+            -- 入库记录（来自验收单）
+            SELECT
+                1 as operation_type,
+                '入库' as operation_desc,
+                a.acceptance_no as business_no,
+                a.create_user_name as operator_name,
+                a.create_time as operation_time,
+                '供应商' as from_location,
+                '中心仓库' as to_location,
+                a.remark
+            FROM spd_acceptance a
+            INNER JOIN spd_acceptance_detail ad ON a.acceptance_id = ad.acceptance_id
+            WHERE ad.serial_no = #{labelCode}
+            AND a.del_flag = 0
+
+            UNION ALL
+
+            -- 打包记录
+            SELECT
+                2 as operation_type,
+                '打包' as operation_desc,
+                p.package_no as business_no,
+                p.create_user_name as operator_name,
+                p.create_time as operation_time,
+                '中心仓库' as from_location,
+                '待出库区' as to_location,
+                p.remark
+            FROM spd_package p
+            INNER JOIN spd_package_detail pd ON p.package_id = pd.package_id
+            WHERE pd.label_code = #{labelCode}
+            AND p.del_flag = 0
+
+            UNION ALL
+
+            -- 出库记录（分发到科室）
+            SELECT
+                3 as operation_type,
+                '出库分发' as operation_desc,
+                '' as business_no,
+                '' as operator_name,
+                NOW() as operation_time,
+                '中心仓库' as from_location,
+                '科室' as to_location,
+                '出库分发到科室' as remark
+            FROM spd_label
+            WHERE label_code = #{labelCode}
+            AND status >= 3
+            AND del_flag = 0
+
+            UNION ALL
+
+            -- 消耗记录
+            SELECT
+                5 as operation_type,
+                '消耗' as operation_desc,
+                c.consume_no as business_no,
+                c.consume_user_name as operator_name,
+                c.consume_date as operation_time,
+                c.dept_name as from_location,
+                '已消耗' as to_location,
+                c.remark
+            FROM spd_dept_consume c
+            INNER JOIN spd_dept_consume_detail cd ON c.consume_id = cd.consume_id
+            WHERE cd.serial_no = #{labelCode}
+            AND c.del_flag = 0
+
+            UNION ALL
+
+            -- 退库记录
+            SELECT
+                6 as operation_type,
+                '退库' as operation_desc,
+                r.return_no as business_no,
+                r.create_user_name as operator_name,
+                r.create_time as operation_time,
+                r.dept_name as from_location,
+                '中心仓库' as to_location,
+                r.remark
+            FROM spd_dept_return r
+            INNER JOIN spd_dept_return_detail rd ON r.return_id = rd.return_id
+            WHERE rd.serial_no = #{labelCode}
+            AND r.del_flag = 0
+
+            UNION ALL
+
+            -- 调拨记录
+            SELECT
+                7 as operation_type,
+                '调拨' as operation_desc,
+                al.allocation_no as business_no,
+                al.create_user_name as operator_name,
+                al.create_time as operation_time,
+                al.from_dept_name as from_location,
+                al.to_dept_name as to_location,
+                al.remark
+            FROM spd_dept_allocation al
+            INNER JOIN spd_dept_allocation_detail ald ON al.allocation_id = ald.allocation_id
+            WHERE ald.serial_no = #{labelCode}
+            AND al.del_flag = 0
+        ) track_data
+        ORDER BY operation_time ASC
+    </select>
+
+</mapper>
