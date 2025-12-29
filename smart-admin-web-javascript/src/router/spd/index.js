@@ -89,6 +89,46 @@ export const spdRouters = [
           hideInMenu: false,
         },
       },
+      // 物料管理
+      {
+        path: 'material',
+        name: 'SpdMaterial',
+        component: () => import('/@/views/spd/material/material-list.vue'),
+        meta: {
+          title: '物料管理',
+          hideInMenu: false,
+        },
+      },
+      // 耗材分类管理
+      {
+        path: 'category',
+        name: 'SpdCategory',
+        component: () => import('/@/views/spd/category/category-list.vue'),
+        meta: {
+          title: '耗材分类管理',
+          hideInMenu: false,
+        },
+      },
+      // 单位管理
+      {
+        path: 'unit',
+        name: 'SpdUnit',
+        component: () => import('/@/views/spd/unit/unit-list.vue'),
+        meta: {
+          title: '单位管理',
+          hideInMenu: false,
+        },
+      },
+      // 单位换算关系
+      {
+        path: 'unit-conversion',
+        name: 'SpdUnitConversion',
+        component: () => import('/@/views/spd/unit-conversion/unit-conversion-list.vue'),
+        meta: {
+          title: '单位换算关系',
+          hideInMenu: false,
+        },
+      },
       // 生产厂家管理
       {
         path: 'manufacturer',
