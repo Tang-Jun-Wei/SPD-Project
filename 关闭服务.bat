@@ -151,15 +151,22 @@ if not errorlevel 1 (
 echo.
 
 :: ==========================================
-:: 第4步: 关闭相关的cmd窗口
+:: 第4步: 关闭相关的服务窗口
 :: ==========================================
 echo [4/4] 正在关闭服务窗口...
-for /f "tokens=2" %%a in ('tasklist /FI "WINDOWTITLE eq SPD*" /FO LIST 2^^^>nul ^| findstr /C:"PID:"') do (
-    taskkill /F /PID %%a >nul 2>&1
+
+:: 关闭PowerShell窗口（前端服务）
+for /f "tokens=2" %%a in ('tasklist /FI "IMAGENAME eq powershell.exe" /FO LIST 2^^^>nul ^| findstr /C:"PID:"') do (
+    wmic process where "ProcessId=%%a" get CommandLine 2>nul | findstr /C:"SPD前端服务" >nul 2>&1
+    if not errorlevel 1 (
+        taskkill /F /PID %%a >nul 2>&1
+    )
 )
-:: 通过窗口标题关闭
+
+:: 通过窗口标题关闭cmd窗口
 taskkill /F /FI "WINDOWTITLE eq SPD前端服务*" >nul 2>&1
 taskkill /F /FI "WINDOWTITLE eq SPD后端服务*" >nul 2>&1
+
 echo ✓ 服务窗口已关闭
 echo.
 
@@ -192,7 +199,7 @@ if !STOPPED_COUNT! gtr 0 (
 
 echo.
 echo ╔════════════════════════════════════════════════════════════╗
-echo ║                  窗口将在10秒后自动关闭                    ║
+echo ║                  窗口将在5秒后自动关闭                    ║
 echo ╚════════════════════════════════════════════════════════════╝
 echo.
 

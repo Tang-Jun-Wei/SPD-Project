@@ -43,7 +43,7 @@ echo.
 
 :: 启动前端
 echo 正在启动前端服务...
-start "SPD前端服务" cmd /k "cd /d "%~dp0" && call start-frontend.bat"
+start "SPD前端服务" powershell -NoExit -Command "cd 'D:\Program Files (x86)\Spd_Project\smart-admin-web-javascript'; $host.UI.RawUI.WindowTitle = 'SPD前端服务'; npm run dev"
 echo ✓ 前端服务启动中
 echo.
 
